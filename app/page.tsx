@@ -3,6 +3,7 @@ import ArtistList from "./components/ArtistList";
 import CreateArtistForm from "./components/forms/CreateArtistForm";
 
 
+
 export default async function Home() {
 
   return (

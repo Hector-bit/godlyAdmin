@@ -21,7 +21,7 @@ export default function CreateArtistForm() {
 
   return (
     <form action={formAction}>
-      <div className="rounded-md p-4 bg-lime-950 rounded-xl md:p-6">
+      <div className="rounded-md p-4  rounded-xl md:p-6">
         {/* Real Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">

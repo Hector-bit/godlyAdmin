@@ -27,7 +27,7 @@ export type State = {
   message?: string | null;
 };
 
-
+//GET ALL ARTISTS
 export const fetchArtists = async() => {
   try{
     const response = await fetch(`${apiURL}/artists`)
@@ -40,13 +40,26 @@ export const fetchArtists = async() => {
   }
 }
 
-const CreateArtist = FormSchema
+//GET ARTIST BY ID
+export const fetchArtistById = async(artistId: string) => {
+  try{
+    const response = await fetch(`${apiURL}/artists/${artistId}`)
+    const data = await response.json()
+    console.log('artist data', data)
+
+    return data
+  }
+  catch(error) {
+    console.error('Could not fetch artist', error)
+    return undefined
+  }
+}
 
 
 //CREATE ARTIST
 export const createArtist = async(prevState: State, formData: FormData) => {
   console.log('running createArtist')
-  const validatedFields = CreateArtist.safeParse({
+  const validatedFields = FormSchema.safeParse({
     name: formData.get('name'),
     artistName: formData.get('artistName')
   })

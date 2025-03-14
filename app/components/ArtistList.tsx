@@ -10,13 +10,13 @@ const ArtistList = async() => {
     <div>
       <div>Godly Artists</div>
       <div className="grid grid-span-2 gap-3">
-        {artists.map((artist:ArtistType, index:number) => {
+        {artists && artists.map((artist:ArtistType, index:number) => {
           return (
-            <Link href={`/artists/${artist._id}`}>
-              <div key={artist._id} className="flex flex-row justify-between p-2 border-2 border-white">
+            <Link key={artist._id} href={`/artists/${artist._id}`}>
+              <div className="flex flex-row justify-between p-3 border-2 border-black rounded-xl">
                 <div className="flex flex-col">
                   <div>Name: {artist.name}</div>
-                  {artist.artistName ?? <div>Artist Name: {artist.artistName}</div>}
+                  <div>Artist Name: {artist.artistName}</div>
                 </div>
               </div>
             

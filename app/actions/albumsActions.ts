@@ -1,3 +1,4 @@
+import { AlbumType } from "../lib/types/albumTypes"
 // import { z } from "zod";
 
 // const mongo_url = process.env.MONGO_URL
@@ -20,7 +21,7 @@ const apiURL = process.env.MONGO_URL
 
 // GET ALBUM REQ FN 
 
-export const fetchAlbumsByArtistId = async(artistId: string) => {
+export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[] | undefined> => {
 
   const requestUrl = `${apiURL}/albums/${artistId}`
 

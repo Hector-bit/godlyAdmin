@@ -1,7 +1,8 @@
+import { ArtistType } from "../lib/types/artistTypes"
 // const mongo_url = process.env.MONGO_URL
 const apiURL = process.env.MONGO_URL
 
-export const fetchSongsByArtistId = async(artistId: string) => {
+export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType | undefined> => {
 
   const requestUrl = `${apiURL}/songs/${artistId}`
 

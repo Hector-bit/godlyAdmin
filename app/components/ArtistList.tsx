@@ -1,5 +1,5 @@
 import { fetchArtists } from "../actions/artistActions";
-import { ArtistType } from "../lib/types/artists";
+import { ArtistType } from "../lib/types/artistTypes";
 import Link from "next/link";
 
 const ArtistList = async() => {

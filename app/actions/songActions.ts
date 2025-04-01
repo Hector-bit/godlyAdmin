@@ -1,4 +1,4 @@
-const mongo_url = process.env.MONGO_URL
+// const mongo_url = process.env.MONGO_URL
 const apiURL = process.env.MONGO_URL
 
 export const fetchSongsByArtistId = async(artistId: string) => {

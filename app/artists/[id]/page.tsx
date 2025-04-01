@@ -35,7 +35,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         {/* ALBUMS LIST */}
         {artistAlbums.map((album:any) => {
           return (
-            <div className="border border-black p-4 rounded-xl">
+            <div key={album.id} className="border border-black p-4 rounded-xl">
               <div>Album: {album.albumName}</div>
             </div>
           )

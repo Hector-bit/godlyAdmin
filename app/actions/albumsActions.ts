@@ -1,22 +1,22 @@
-import { z } from "zod";
+// import { z } from "zod";
 
-const mongo_url = process.env.MONGO_URL
+// const mongo_url = process.env.MONGO_URL
 const apiURL = process.env.MONGO_URL
 
-const FormSchema = z.object({
-  albumName: z.coerce
-    .string()
-    .optional()
-    .nullable(),
+// const FormSchema = z.object({
+//   albumName: z.coerce
+//     .string()
+//     .optional()
+//     .nullable(),
   
-  artistId: z.coerce.string().nonempty()
+//   artistId: z.coerce.string().nonempty()
   
   
-  // status: z.enum(['pending', 'paid'], {
-  //   invalid_type_error: 'Please select an invoice status.',
-  // }),
-  // date: z.string(),
-});
+//   // status: z.enum(['pending', 'paid'], {
+//   //   invalid_type_error: 'Please select an invoice status.',
+//   // }),
+//   // date: z.string(),
+// });
 
 // GET ALBUM REQ FN 
 

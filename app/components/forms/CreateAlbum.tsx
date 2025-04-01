@@ -25,7 +25,7 @@ export default function CreateAlbumForm() {
         {/* Real Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">
-            Artist real name
+            Album Name
           </label>
           <div className="relative">
             <input               
@@ -33,7 +33,7 @@ export default function CreateAlbumForm() {
               name="name"
               className="peer block w-full cursor-pointer rounded-md py-2 pl-10 border border-gray-200"
               defaultValue=""
-              placeholder="Real Name"
+              placeholder="Album Name"
               aria-describedby='artist-error'>
             </input>
           </div>
@@ -82,7 +82,7 @@ export default function CreateAlbumForm() {
         >
           Cancel
         </Link> */}
-        <button className='border border-2 rounded-md p-4' type="submit">Create Artist</button>
+        <button className='border border-2 rounded-md p-4' type="submit">Create Album</button>
       </div>
     </form>
   );

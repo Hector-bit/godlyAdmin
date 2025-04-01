@@ -82,7 +82,7 @@ export default function CreateSongForm() {
         >
           Cancel
         </Link> */}
-        <button className='border border-2 rounded-md p-4' type="submit">Create Artist</button>
+        <button className='border border-2 rounded-md p-4' type="submit">Create Song</button>
       </div>
     </form>
   );

@@ -1,6 +1,11 @@
 import { ArtistType } from "../lib/types/artistTypes"
+import { z } from "zod"
 // const mongo_url = process.env.MONGO_URL
 const apiURL = process.env.MONGO_URL
+
+export const SongSchema = z.object({
+  songName: z.string(),
+})
 
 export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType | undefined> => {
 

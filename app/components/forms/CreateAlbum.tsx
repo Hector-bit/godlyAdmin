@@ -1,8 +1,9 @@
 'use client'
 import { useActionState } from 'react';
 import { createArtist, State } from '@/app/actions/artistActions'
+import { createAlbum } from '@/app/actions/albumsActions';
 
-export default function CreateAlbumForm() {
+export const CreateAlbumForm = () => {
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(createArtist, initialState);
 

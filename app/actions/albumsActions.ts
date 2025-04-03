@@ -1,8 +1,8 @@
 'use server'
 import { AlbumType } from "../lib/types/albumTypes"
 import { z } from "zod";
-import { SongSchema } from "./songActions";
-import { error } from "console";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const mongo_url = process.env.MONGO_URL
 
@@ -43,7 +43,6 @@ export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[]
 
 export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormData) => {
   console.log('running create album to: ', mongo_url)
-  console.log('MY MONGO URL: ', mongo_url)
 
   const validatedFields = AlbumSchema.safeParse({
     albumName: formData.get('albumName'),
@@ -51,7 +50,7 @@ export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormDa
     // songs: formData.get('songs')
   })
 
-  console.log('fields: ', validatedFields.success, validatedFields)
+  // console.log('fields: ', validatedFields.success, validatedFields)
 
   if(!validatedFields.success) {
     return {
@@ -68,7 +67,7 @@ export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormDa
   }
 
   const requestUrl = `${mongo_url}/albums`
-  console.log('request url: ', requestUrl)
+  // console.log('request url: ', requestUrl)
 
   try {
     const response = await fetch(requestUrl, {
@@ -79,16 +78,15 @@ export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormDa
       },
     })
 
-    console.log('MY RESPONSE', response)
+    // console.log('MY RESPONSE', response)
 
     const responseData = await response.json()
 
     console.log('create album post data: ', responseData)
-
-    // revalidatePath('/')
-    return responseData
   } catch(error) {
     console.error('could not create album: ', error)
-    return undefined
   }
+
+  revalidatePath(`/artists${artistId}`)
+  redirect(`/artists/${artistId}`)
 }

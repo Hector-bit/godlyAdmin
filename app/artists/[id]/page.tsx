@@ -1,7 +1,7 @@
 import { fetchAlbumsByArtistId } from "@/app/actions/albumsActions";
 import { fetchArtistById } from "@/app/actions/artistActions";
 import Link from "next/link";
-
+import { PencilSquareIcon } from "@heroicons/react/16/solid";
 
 
 export default async function ArtistPage(props: { params: Promise<{id: string}> }) {
@@ -35,8 +35,11 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
             {/* ALBUMS LIST */}
             {artistAlbums && artistAlbums.map((album) => {
               return (
-                <div key={album._id} className="border border-black p-4 rounded-xl">
+                <div key={album._id} className="flex flex-row justify-between border border-black p-4 rounded-xl">
                   <div>Album: {album.albumName}</div>
+                  <Link href={`/artists/${artistId}/album-manager/${album._id}`}>
+                    <PencilSquareIcon className="w-[20px]"/>
+                  </Link>
                 </div>
               )
             })}

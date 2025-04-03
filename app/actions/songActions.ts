@@ -1,11 +1,31 @@
+'use server'
+
 import { ArtistType } from "../lib/types/artistTypes"
-import { z } from "zod"
-// const mongo_url = process.env.MONGO_URL
+// import { z } from "zod"
+
 const apiURL = process.env.MONGO_URL
 
-export const SongSchema = z.object({
-  songName: z.string(),
-})
+// export const SongSchema = z.object({
+//   songName: z.string(),
+// })
+
+// GET SONGS FNS
+
+export const fetchSongsByAlbumId = async(albumId: string) => {
+  const requestUrl = `${apiURL}/songs/${albumId}`
+
+  console.log('req url fron song fetch:', requestUrl, ' end')
+
+  try{
+    const response = await fetch(requestUrl)
+    const data = await response.json()
+    // console.log('artist data: ', data)
+    return data
+  } catch(error) {
+    console.error('could not fetch songs by album id: ', error)
+    return undefined
+  }
+}
 
 export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType | undefined> => {
 

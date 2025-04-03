@@ -25,6 +25,20 @@ export type AlbumFormState = {
 
 // GET ALBUM FNS
 
+export const fetchAlbumByAlbumId = async(albumId: string) => {
+  const requestUrl = `${mongo_url}/albums/${albumId}`
+
+  try{
+    const response = await fetch(requestUrl)
+    const data = await response.json()
+    // console.log('artist data: ', data)
+    return data
+  } catch(error) {
+    console.error('could not fetch album: ', error)
+    return undefined
+  }
+}
+
 export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[] | undefined> => {
   const requestUrl = `${mongo_url}/albums/${artistId}`
 

@@ -2,7 +2,6 @@
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache';
 import { ArtistType } from '../lib/types/artistTypes';
-import { SafeParseError } from 'zod';
 
 const mongo_url = process.env.MONGO_URL
 

@@ -1,4 +1,4 @@
-import CreateAlbumForm from "@/app/components/forms/CreateAlbum"
+import { CreateAlbumForm } from "@/app/components/forms/CreateAlbumForm"
 
 export default async function AlbumPage(props: { params: Promise<{id: string}> }) {
 
@@ -9,7 +9,7 @@ export default async function AlbumPage(props: { params: Promise<{id: string}> }
     <div>
       Albums 
 
-      <CreateAlbumForm/>
+      <CreateAlbumForm artistId={params.id}/>
     </div>
   )
 }

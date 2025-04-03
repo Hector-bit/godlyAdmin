@@ -1,42 +1,32 @@
+'use server'
 import { AlbumType } from "../lib/types/albumTypes"
 import { z } from "zod";
 import { SongSchema } from "./songActions";
+import { error } from "console";
 
-// const mongo_url = process.env.MONGO_URL
-const apiURL = process.env.MONGO_URL
+const mongo_url = process.env.MONGO_URL
 
 const AlbumSchema = z.object({
-  albumName: z.coerce
-    .string()
-    .optional()
-    .nullable(),
+  albumName: z.coerce.string().nonempty(),
   
   artistId: z.coerce.string().nonempty(),
 
-  songs: z.array(SongSchema)
+  // songs: z.array(SongSchema)
 });
 
 export type AlbumFormState = {
   errors?: {
-    name?: string[];
     albumName?: string[];
-    songs?: string[]
+    artistId?: string[];
+    // songs?: string[]
   };
   message?: string | null;
 };
 
-type ArtistFetchData = {
-  name: string
-  artistName: string
-  albums: string[]
-  songs: string[]
-}
-
-// GET ALBUM REQ FN 
+// GET ALBUM FNS
 
 export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[] | undefined> => {
-
-  const requestUrl = `${apiURL}/albums/${artistId}`
+  const requestUrl = `${mongo_url}/albums/${artistId}`
 
   try{
     const response = await fetch(requestUrl)
@@ -49,13 +39,56 @@ export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[]
   }
 }
 
-// POST FNS FOR ALBUM
+// POST ALBUM FNS
 
-export const createAlbum = async(prevState: AlbumFormState, formData: FormData) => {
-  console.log('running create album')
+export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormData) => {
+  console.log('running create album to: ', mongo_url)
+  console.log('MY MONGO URL: ', mongo_url)
+
   const validatedFields = AlbumSchema.safeParse({
     albumName: formData.get('albumName'),
     artistId: formData.get('artistId'),
-    songs: formData.get('songs')
+    // songs: formData.get('songs')
   })
+
+  console.log('fields: ', validatedFields.success, validatedFields)
+
+  if(!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing fields. failed to create albun'
+    }
+  }
+
+  const { albumName, artistId } = validatedFields.data
+
+  const albumPostBody = {
+    'albumName': albumName,
+    'artistId': artistId
+  }
+
+  const requestUrl = `${mongo_url}/albums`
+  console.log('request url: ', requestUrl)
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      body: JSON.stringify(albumPostBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    console.log('MY RESPONSE', response)
+
+    const responseData = await response.json()
+
+    console.log('create album post data: ', responseData)
+
+    // revalidatePath('/')
+    return responseData
+  } catch(error) {
+    console.error('could not create album: ', error)
+    return undefined
+  }
 }

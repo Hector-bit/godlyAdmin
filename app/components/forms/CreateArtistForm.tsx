@@ -8,7 +8,7 @@ export default function CreateArtistForm() {
 
   return (
     <form action={formAction}>
-      <div className="rounded-md p-4  rounded-xl md:p-6">
+      <div className="rounded-md p-4 rounded-xl md:p-6">
         {/* Real Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">
@@ -60,7 +60,6 @@ export default function CreateArtistForm() {
               ))}
           </div>
         </div>
-
       </div>
       <div className="mt-6 flex justify-end gap-4">
         {/* <Link

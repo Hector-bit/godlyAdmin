@@ -13,13 +13,13 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
   console.log('artist info', artistData, artistAlbums)
 
   return (
-    <div className="flex flex-col justify-between gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen p-8">
       {/* <ArtistList/>
       <CreateArtistForm/> */}
 
       {/* ARTIST INFORMATION  */}
       <div>Name: {artistData?.name}</div>
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-4 sm:gap-8">
         {/* ARTIST ALBUM */}
         <div>
           <div className="flex flex-row items-center mb-4 gap-5">

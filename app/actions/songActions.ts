@@ -11,8 +11,8 @@ const apiURL = process.env.MONGO_URL
 
 // GET SONGS FNS
 
-export const fetchSongsByAlbumId = async(albumId: string) => {
-  const requestUrl = `${apiURL}/songs/${albumId}`
+export const fetchSongs = async(albumId?: string, artistId?: string) => {
+  const requestUrl = `${apiURL}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`?artistId=${artistId}`:''}`
 
   console.log('req url fron song fetch:', requestUrl, ' end')
 

@@ -101,6 +101,6 @@ export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormDa
     console.error('could not create album: ', error)
   }
 
-  revalidatePath(`/artists${artistId}`)
+  revalidatePath(`/artists/${artistId}`)
   redirect(`/artists/${artistId}`)
 }

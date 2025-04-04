@@ -19,7 +19,7 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
         <div>album page {albumId}</div>
 
         <Link 
-          href={`/artists/${artistId}/song-manager`}
+          href={`/artists/${artistId}/album-manager/${albumId}/song-manager`}
           className="p-2 border border-black bg-cyan-500 text-white font-bold rounded-xl"
         >
             Create Song

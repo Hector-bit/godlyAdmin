@@ -1,19 +1,21 @@
 import { fetchSongs } from "@/app/actions/songActions";
+import CreateSongForm from "@/app/components/forms/CreateSongForm";
 
 
-export default async function SongPage(props: { params: Promise<{songId: string}> }) {
+export default async function SongPage(props: { params: Promise<{id: string, albumId: string}> }) {
   const params = await props.params;
-  const songId = params.songId
+  const artistId = params.id
+  const albumId = params.albumId
 
   // const albumSongs = await fetchSongs(albumId)
 
   // const artistData = await fetchArtistById(artistId)
   // const artistAlbums = await fetchAlbumsByArtistId(artistId)
-  console.log('songs info', songId)
+  console.log('songs info for ids: ', artistId, albumId)
 
   return (
     <div className="flex flex-col gap-3 min-h-screen p-8">
-      song page {songId}
+      Album id: {albumId}
 
       {/* ALBUM SONGS */}
       {/* <div className="flex flex-col rounded-xl">
@@ -26,6 +28,7 @@ export default async function SongPage(props: { params: Promise<{songId: string}
 
         })}
       </div> */}
+      <CreateSongForm artistId={artistId} albumId={albumId}/>
     </div>
   );
 }

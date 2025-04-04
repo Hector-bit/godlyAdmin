@@ -1,33 +1,35 @@
 'use client'
 import { useActionState } from 'react';
+import { postCreateSong, SongFormState } from '@/app/actions/songActions';
 
-import { createArtist, State } from '@/app/actions/artistActions'
+export default function CreateSongForm(props: {artistId: string, albumId: string}) {
+  const initialState: SongFormState = { message: null, errors: {} };
+  const [state, formAction] = useActionState(postCreateSong, initialState);
 
-export default function CreateSongForm() {
-  const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createArtist, initialState);
+  const artistId = props.artistId
+  const albumId = props.albumId 
 
   return (
     <form action={formAction}>
       <div className="rounded-md p-4  rounded-xl md:p-6">
-        {/* Real Name */}
+        {/* Song Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">
-            Artist real name
+            Song name
           </label>
           <div className="relative">
             <input               
-              id="name"
-              name="name"
+              id="songName"
+              name="songName"
               className="peer block w-full cursor-pointer rounded-md py-2 pl-10 border border-gray-200"
               defaultValue=""
-              placeholder="Real Name"
+              placeholder="Song Name"
               aria-describedby='artist-error'>
             </input>
           </div>
           <div id="artist-error" aria-live="polite" aria-atomic="true">
-            {state && state.errors?.name &&
-              state.errors.name.map((error: string) => (
+            {state && state.errors?.songName &&
+              state.errors.songName.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -35,32 +37,60 @@ export default function CreateSongForm() {
           </div>
         </div>
 
-        {/* Artist Name */}
+        {/* Artist Id */}
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Choose artist name
+            ArtistId: {artistId}
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="artistName"
-                name="artistName"
-                defaultValue=""
-                placeholder="Artist Name"
+                id="artistId"
+                name="artistId"
+                type='hidden'
+                defaultValue={artistId}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
               />
             </div>
           </div>
           <div id="artist-error" aria-live="polite" aria-atomic="true">
-            {state && state.errors?.artistName &&
-              state.errors?.artistName.map((error: string) => (
+            {state && state.errors?.artistId &&
+              state.errors?.artistId.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
               ))}
           </div>
         </div>
+
+        {/* Artist Id */}
+        <div className="mb-4">
+          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+            Album id: {albumId}
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="albumId"
+                name="albumId"
+                type='hidden'
+                defaultValue={albumId}
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                aria-describedby='artist-error'
+              />
+            </div>
+          </div>
+          <div id="artist-error" aria-live="polite" aria-atomic="true">
+            {state && state.errors?.albumId &&
+              state.errors?.albumId.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
 
       </div>
       <div className="mt-6 flex justify-end gap-4">

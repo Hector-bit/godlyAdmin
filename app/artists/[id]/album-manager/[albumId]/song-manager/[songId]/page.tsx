@@ -1,7 +1,5 @@
-import { fetchSongs } from "@/app/actions/songActions";
 
-
-export default async function SongPage(props: { params: Promise<{songId: string}> }) {
+export default async function SongIdPage(props: { params: Promise<{songId: string}> }) {
   const params = await props.params;
   const songId = params.songId
 

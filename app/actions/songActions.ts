@@ -4,6 +4,8 @@ import { ArtistType } from "../lib/types/artistTypes"
 // import { z } from "zod"
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { SongType } from "../lib/types/songTypes";
+
 
 const mongo_url = process.env.MONGO_URL
 
@@ -27,7 +29,7 @@ export type SongFormState = {
 
 // GET SONGS FNS
 
-export const fetchSongs = async(albumId?: string, artistId?: string) => {
+export const fetchSongs = async(albumId?: string, artistId?: string):Promise<SongType[] | undefined> => {
   const requestUrl = `${mongo_url}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`?artistId=${artistId}`:''}`
 
   console.log('req url fron song fetch:', requestUrl, ' end')

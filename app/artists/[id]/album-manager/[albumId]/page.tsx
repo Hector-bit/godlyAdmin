@@ -29,17 +29,20 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
       {/* ALBUM SONGS */}
       <div className="flex flex-col rounded-xl">
         <div className="mb-4">Songs: </div>
-        {albumSongs.map((song:any) => {
-          return (
-            <div className="flex flex-row justify-between border border-black rounded-xl p-4" key={song._id}>
-              <div>Song Name: {song.songName}</div>
-              <Link href={`/artists/${artistId}/song-manager/${song._id}`}>
-                <PencilSquareIcon className="w-[20px]"/>
-              </Link>
-            </div>
-          )
+        <div className="flex flex-col gap-4">
+          {albumSongs && albumSongs.map((song) => {
+            return (
+              <div className="flex flex-row justify-between border border-black rounded-xl p-4" key={song._id}>
+                <div>Song Name: {song.songName}</div>
+                <Link href={`/artists/${artistId}/song-manager/${song._id}`}>
+                  <PencilSquareIcon className="w-[20px]"/>
+                </Link>
+              </div>
+            )
 
-        })}
+          })}
+
+        </div>
       </div>
     </div>
   );

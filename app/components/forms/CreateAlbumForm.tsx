@@ -1,6 +1,5 @@
 'use client'
 import { useActionState } from 'react';
-// import { createArtist, State } from '@/app/actions/artistActions'
 import { postCreateAlbum, AlbumFormState } from '@/app/actions/albumsActions';
 
 export const CreateAlbumForm = ({ artistId }: { artistId: string}) => {

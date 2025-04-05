@@ -51,10 +51,10 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         <div className="flex flex-row items-center mb-4 gap-5">
             <div>Songs:</div>
             <Link 
-              href={`/artist${artistId}/album-manage`}
+              href={`/artists/${artistId}/single-manager`}
               className="p-2 border border-black bg-cyan-500 text-white font-bold rounded-xl"
             >
-                Create Song
+              Create Single
             </Link>
           </div>
         </div>

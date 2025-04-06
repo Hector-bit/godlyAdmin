@@ -1,7 +1,10 @@
 export type SongType = {
   "_id": string,
+  "__v": number
   "songName": string,
   "artistId": string,
-  "albumId": string,
-  "__v": number
+  "albumId"?: string,
+  "spotifyLink"?: string,
+  "youtubeLink"?: string,
+  "soundCloundLink"?: string
 }

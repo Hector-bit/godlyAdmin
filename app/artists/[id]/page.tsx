@@ -63,7 +63,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
             {artistSingles && artistSingles.map((song) => {
               return (
                 <div key={song._id} className="flex flex-row justify-between border border-black p-4 rounded-xl">
-                  <div>Song: {song.songName}</div>
+                  <div>Single: {song.songName}</div>
                   <Link href={`/artists/${artistId}/single-manager/${song._id}`}>
                     <PencilSquareIcon className="w-[20px]"/>
                   </Link>

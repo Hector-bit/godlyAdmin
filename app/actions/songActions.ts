@@ -36,7 +36,7 @@ export type SongFormState = {
 // GET SONGS FNS
 
 export const fetchSongs = async(albumId?: string, artistId?: string):Promise<SongType[] | undefined> => {
-  const requestUrl = `${mongo_url}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`?artistId=${artistId}`:''}`
+  const requestUrl = `${mongo_url}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`&?artistId=${artistId}`:''}`
 
   console.log('req url fron song fetch:', requestUrl, ' end')
 
@@ -66,9 +66,24 @@ export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType |
   }
 }
 
+export const fetchSongBySongId = async(songId: string):Promise<SongType | undefined> => {
+  const requestUrl = `${mongo_url}/songs/${songId}`
+
+  try{
+    const response = await fetch(requestUrl)
+    const data = await response.json()
+    // console.log('artist data: ', data)
+    return data
+  } catch(error) {
+    console.error('could not fetch artist songs: ', error)
+    return undefined
+  }
+}
+
+// TODO: GET RID OF THIS OR REPLACE 
 export const fetchSinglesByArtistId = async(artistId: string):Promise<SongType[] | undefined> => {
 
-  const requestUrl = `${mongo_url}/songs?artistId=${artistId}&?isSingle=true`
+  const requestUrl = `${mongo_url}/songs?artistId=${artistId}&isSingle=true`
 
   try{
     const response = await fetch(requestUrl)

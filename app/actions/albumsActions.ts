@@ -25,7 +25,7 @@ export type AlbumFormState = {
 
 // GET ALBUM FNS
 
-export const fetchAlbumByAlbumId = async(albumId: string) => {
+export const fetchSongsByAlbumId = async(albumId: string) => {
   const requestUrl = `${mongo_url}/albums/${albumId}`
 
   try{

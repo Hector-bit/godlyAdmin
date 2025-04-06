@@ -66,9 +66,9 @@ export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType |
   }
 }
 
-export const fetchSinglesByArtistId = async(artistId: string):Promise<ArtistType | undefined> => {
+export const fetchSinglesByArtistId = async(artistId: string):Promise<SongType[] | undefined> => {
 
-  const requestUrl = `${mongo_url}/songs/${artistId}`
+  const requestUrl = `${mongo_url}/songs?artistId=${artistId}&?isSingle=true`
 
   try{
     const response = await fetch(requestUrl)

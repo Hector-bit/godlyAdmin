@@ -12,6 +12,32 @@ export default function CreateSingleForm(props: {artistId: string}) {
 
   return (
     <form action={formAction}>
+      {/* Artist Id */}
+      <div className="mb-4">
+        <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+          ArtistId: {artistId}
+        </label>
+        <div className="relative mt-2 rounded-md">
+          <div className="relative">
+            <input
+              id="artistId"
+              name="artistId"
+              type='hidden'
+              defaultValue={artistId}
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+              aria-describedby='artist-error'
+            />
+          </div>
+        </div>
+        <div id="artist-error" aria-live="polite" aria-atomic="true">
+          {state && state.errors?.artistId &&
+            state.errors?.artistId.map((error: string) => (
+              <p className="mt-2 text-sm text-red-500" key={error}>
+                {error}
+              </p>
+            ))}
+        </div>
+      </div>
       <div className="rounded-md p-4  rounded-xl md:p-6">
         {/* Song Name */}
         <div className="mb-4">
@@ -31,32 +57,6 @@ export default function CreateSingleForm(props: {artistId: string}) {
           <div id="artist-error" aria-live="polite" aria-atomic="true">
             {state && state.errors?.songName &&
               state.errors.songName.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        {/* Artist Id */}
-        <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            ArtistId: {artistId}
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="artistId"
-                name="artistId"
-                defaultValue={artistId}
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
-                aria-describedby='artist-error'
-              />
-            </div>
-          </div>
-          <div id="artist-error" aria-live="polite" aria-atomic="true">
-            {state && state.errors?.artistId &&
-              state.errors?.artistId.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

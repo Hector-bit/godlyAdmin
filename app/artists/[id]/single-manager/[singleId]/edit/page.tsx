@@ -3,7 +3,7 @@ import { fetchSongBySongId } from "@/app/actions/songActions";
 
 export default async function EditSinglePage(props: { params: Promise<{id: string, singleId: string}> }) {
   const params = await props.params;
-  const artistId = params.id
+  // const artistId = params.id
   const singleId = params.singleId
 
   const singleData = await fetchSongBySongId(singleId)

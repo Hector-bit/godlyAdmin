@@ -1,7 +1,6 @@
 import { fetchSongs } from "@/app/actions/songActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
-import { fetchSongsByAlbumId } from "@/app/actions/albumsActions";
 
 export default async function AlbumPage(props: { params: Promise<{id:string, albumId: string}> }) {
   const params = await props.params;
@@ -31,7 +30,7 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
       <div className="flex flex-col rounded-xl">
         <div className="mb-4">Songs: </div>
         <div className="flex flex-col gap-4">
-          {albumSongs && albumSongs.map((song:any) => {
+          {albumSongs && albumSongs.map((song) => {
             return (
               <div className="flex flex-row justify-between border border-black rounded-xl p-4" key={song._id}>
                 <div>Song Name: {song.songName}</div>

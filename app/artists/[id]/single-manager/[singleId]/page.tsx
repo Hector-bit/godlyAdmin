@@ -13,7 +13,7 @@ export default async function SinglesPage(props: { params: Promise<{id: string, 
   console.log('artist info', singleData)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       {/* ARTIST INFORMATION  */}
       <div className="flex flex-row justify-between items-center">
         <div>Name: {singleData?.songName}</div>

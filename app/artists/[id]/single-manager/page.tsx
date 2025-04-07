@@ -10,7 +10,7 @@ export default async function SingleManagerPage(props: { params: Promise<{id: st
   // console.log('artist info', artistData, artistAlbums)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       Single Manager
       {/* <ArtistList/>
       <CreateArtistForm/> */}

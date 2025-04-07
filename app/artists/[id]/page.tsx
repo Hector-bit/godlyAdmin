@@ -3,6 +3,7 @@ import { fetchArtistById } from "@/app/actions/artistActions";
 import { fetchSinglesByArtistId } from "@/app/actions/songActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
+import LinkBtn from "@/app/components/buttons/LinkBtn";
 
 
 export default async function ArtistPage(props: { params: Promise<{id: string}> }) {
@@ -15,21 +16,23 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
   console.log('artist info', artistData, artistAlbums, artistSingles)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       {/* ARTIST INFORMATION  */}
-      <div>Name: {artistData?.name}</div>
+      <div className="flex flex-row justify-between">
+        <div>Name: {artistData?.name}</div>
+        <LinkBtn href={`/artists/${artistId}/edit`}>Edit Artist</LinkBtn>
+      </div>
       {/* ARTIST SONGS & ALBUMS */}
-      <div className="grid grid-cols-2 gap-4 sm:gap-8">
+      <div className="grid grid-cols-2 gap-4 sm:gap-8 text-sm">
         {/* ARTIST ALBUMS LIST */}
         <div>
           <div className="flex flex-row items-center mb-4 gap-5">
             <div>Albums:</div>
-            <Link 
+            <LinkBtn 
               href={`/artists/${artistId}/album-manager`}
-              className="p-2 border border-black bg-cyan-500 text-white font-bold rounded-xl"
             >
                 Create Album
-            </Link>
+            </LinkBtn>
           </div>
           <div className="flex flex-col gap-4">
             {/* ALBUMS LIST */}
@@ -51,12 +54,11 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         <div className="flex flex-col">
           <div className="flex flex-row items-center mb-4 gap-5">
             <div>Songs:</div>
-            <Link 
+            <LinkBtn 
               href={`/artists/${artistId}/single-manager`}
-              className="p-2 border border-black bg-cyan-500 text-white font-bold rounded-xl"
             >
               Create Single
-            </Link>
+            </LinkBtn>
           </div>
           {/* SINGLES LIST */}
           <div className="flex flex-col gap-4">

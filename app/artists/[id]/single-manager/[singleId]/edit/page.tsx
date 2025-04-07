@@ -11,7 +11,7 @@ export default async function EditSinglePage(props: { params: Promise<{id: strin
   // console.log('artist info', singleData)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       {/* ARTIST INFORMATION  */}
       <div className="">
         <div>Name: {singleData?.songName}</div>

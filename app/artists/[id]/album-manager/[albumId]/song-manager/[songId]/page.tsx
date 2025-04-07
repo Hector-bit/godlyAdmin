@@ -10,7 +10,7 @@ export default async function SongIdPage(props: { params: Promise<{songId: strin
   console.log('songs info', songId)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       song page {songId}
 
       {/* ALBUM SONGS */}

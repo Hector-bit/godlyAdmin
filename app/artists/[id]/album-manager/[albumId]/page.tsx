@@ -14,7 +14,7 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
   console.log('songs info', albumSongs, albumId)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       <div className="flex flex-row justify-between items-center">
         <div>album page {albumId}</div>
 
@@ -39,9 +39,7 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
                 </Link>
               </div>
             )
-
           })}
-
         </div>
       </div>
     </div>

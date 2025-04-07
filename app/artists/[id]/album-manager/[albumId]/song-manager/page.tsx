@@ -13,7 +13,7 @@ export default async function SongPage(props: { params: Promise<{id: string, alb
   console.log('songs info for ids: ', artistId, albumId)
 
   return (
-    <div className="flex flex-col gap-3 min-h-screen p-8">
+    <div className="flex flex-col gap-3 min-h-screen">
       Album id: {albumId}
 
       {/* ALBUM SONGS */}

@@ -1,13 +1,26 @@
 'use client'
 import { ReactNode, useState } from "react"
+import { deleteArtist } from "@/app/actions/artistActions"
 
 type DeleteBtnType = {
-  btnDeleteType: 'artist'
+  btnDeleteType: 'artist',
+  deleteId: string,
   children: ReactNode
 }
 
-const DeleteBtn = ({ children }: DeleteBtnType) => {
+const DeleteBtn = ({ btnDeleteType, deleteId, children }: DeleteBtnType) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
+
+  const getCorrectDeleteFn = () => {
+    if(btnDeleteType === 'artist'){
+      return deleteArtist
+    }
+    else {
+      return () => console.log('whoops')
+    }
+  }
+
+  const btnDeleteFn = getCorrectDeleteFn()
 
 
   return (
@@ -27,7 +40,7 @@ const DeleteBtn = ({ children }: DeleteBtnType) => {
               </button>
             <button
               className="bg-red-500 text-white font-bold rounded-xl p-4 border-2 border-black"
-              onClick={() => console.log('nothing yet')}
+              onClick={() => btnDeleteFn(deleteId)}
             >
               Yes Delete
             </button>

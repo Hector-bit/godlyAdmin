@@ -2,6 +2,7 @@
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache';
 import { ArtistType } from '../lib/types/artistTypes';
+import { redirect } from "next/navigation";
 
 const mongo_url = process.env.MONGO_URL
 
@@ -34,7 +35,8 @@ type ArtistFetchData = {
   songs: string[]
 }
 
-//GET ALL ARTISTS
+// >>------> GET FNS FOR ARTISTS <------<<
+
 export const fetchArtists = async():Promise<ArtistType[] | undefined> => {
   try{
     const response = await fetch(`${mongo_url}/artists`)
@@ -47,7 +49,6 @@ export const fetchArtists = async():Promise<ArtistType[] | undefined> => {
   }
 }
 
-//GET ARTIST BY ID
 export const fetchArtistById = async(artistId: string):Promise<ArtistFetchData | undefined> => {
   try {
     const response = await fetch(`${mongo_url}/artists/${artistId}`)
@@ -63,9 +64,9 @@ export const fetchArtistById = async(artistId: string):Promise<ArtistFetchData |
 }
 
 
-//CREATE ARTIST
+// >>------> POST FNS FOR ARTISTS <------<<
 export const createArtist = async(prevState: State, formData: FormData) => {
-  console.log('running post create Artist to: ', mongo_url)
+  // console.log('running post create Artist to: ', mongo_url)
   const validatedFields = FormSchema.safeParse({
     name: formData.get('name'),
     artistName: formData.get('artistName')
@@ -85,7 +86,7 @@ export const createArtist = async(prevState: State, formData: FormData) => {
     'artistName': artistName
   }
 
-  console.log('POST BODY: ', postBody, ' to => ', mongo_url)
+  // console.log('POST BODY: ', postBody, ' to => ', mongo_url)
 
   try {
     const postResponse = await fetch(`${mongo_url}/artists`, {
@@ -105,4 +106,26 @@ export const createArtist = async(prevState: State, formData: FormData) => {
     console.error('could not post artist: ', error)
     return undefined
   }
+}
+
+// >>------> DELETE FNS FOR ARTISTS <------<<
+export const deleteArtist = async(artistId: string):Promise<void> => {
+  try {
+    await fetch(`${mongo_url}/artists/${artistId}`,
+      {
+        method: 'DELETE'
+      }
+    )
+
+    // const data = await response.json()
+    // console.log('artist delete data', data)
+  }
+  catch(error) {
+    console.error('Could not fetch artist', error)
+    //TODO: THROW HTTP ERROR INSTEAD
+    return
+  }
+
+  revalidatePath(`/`)
+  redirect(`/`)
 }

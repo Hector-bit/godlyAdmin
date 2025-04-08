@@ -4,8 +4,8 @@ import { fetchSinglesByArtistId } from "@/app/actions/songActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
-import Image from "next/image";
-import { InstagramImage } from "@/app/components/InstagarmImage";
+// import Image from "next/image";
+// import { InstagramImage } from "@/app/components/InstagarmImage";
 
 export default async function ArtistPage(props: { params: Promise<{id: string}> }) {
   const params = await props.params;

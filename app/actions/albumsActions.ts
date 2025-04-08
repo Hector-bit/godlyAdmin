@@ -53,6 +53,20 @@ export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[]
   }
 }
 
+export const fetchAlbumByAlbumId = async(artistId: string):Promise<AlbumType[] | undefined> => {
+  const requestUrl = `${mongo_url}/albums/${artistId}`
+
+  try{
+    const response = await fetch(requestUrl)
+    const data = await response.json()
+    // console.log('artist data: ', data)
+    return data
+  } catch(error) {
+    console.error('could not fetch artist albums: ', error)
+    return undefined
+  }
+}
+
 // POST ALBUM FNS
 
 export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormData) => {

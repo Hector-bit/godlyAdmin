@@ -1,5 +1,5 @@
-import DeleteBtn from "@/app/components/buttons/DeleteBtn";
-// import LinkBtn from "@/app/components/buttons/LinkBtn";
+import DeleteArtistBtn from "@/app/components/buttons/DeleteArtistBtn";
+import DeleteModel from "@/app/components/DeleteModel";
 
 
 export default async function ArtistEditPage(props: { params: Promise<{ id: string }> }) {
@@ -10,9 +10,11 @@ export default async function ArtistEditPage(props: { params: Promise<{ id: stri
     <div className="flex flex-col">
       <div>Edit Artist</div>
 
-      <DeleteBtn btnDeleteType="artist" deleteId={artistId}>
+      <DeleteModel
+        deleteBtn={<DeleteArtistBtn artistId={artistId}/>}
+      >
         Delete Artist
-      </DeleteBtn>
+      </DeleteModel>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { fetchAlbumsByArtistId } from "@/app/actions/albumsActions";
+// import { fetchAlbumsByArtistId } from "@/app/actions/albumsActions";
 import { fetchArtistById } from "@/app/actions/artistActions";
 import { fetchSinglesByArtistId } from "@/app/actions/songActions";
 import Link from "next/link";
@@ -12,15 +12,16 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
   const artistId = params.id
 
   const artistData = await fetchArtistById(artistId)
-  const artistAlbums = await fetchAlbumsByArtistId(artistId)
+  // const artistAlbums = await fetchAlbumsByArtistId(artistId)
   const artistSingles = await fetchSinglesByArtistId(artistId)
-  console.log('artist info', artistData, artistAlbums, artistSingles)
+  console.log('artist info', artistData, artistSingles)
 
   return (
     <div className="flex flex-col gap-3 min-h-screen">
       {/* <InstagramImage postUrl={"https://www.instagram.com/p/C3qq7cLvHTS/media?size=l"}/> */}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
         <LinkBtn href="/">Back</LinkBtn>
+        <div className="font-bold">ARTIST</div>
         <LinkBtn href={`/artists/${artistId}/edit`}>Edit Artist</LinkBtn>
       </div>
       {/* ARTIST INFORMATION  */}
@@ -44,7 +45,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
           </div>
           <div className="flex flex-col gap-4">
             {/* ALBUMS LIST */}
-            {artistAlbums && artistAlbums.map((album) => {
+            {artistData && artistData.albums.map((album) => {
               return (
                 <div key={album._id} className="flex flex-row justify-between border border-black p-4 rounded-xl">
                   <div>Album: {album.albumName}</div>

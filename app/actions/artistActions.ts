@@ -46,7 +46,6 @@ export const fetchArtistById = async(artistId: string):Promise<ArtistType | unde
   try {
     const response = await fetch(`${mongo_url}/artists/${artistId}`)
     const data = await response.json()
-    console.log('artist data', data)
 
     return data
   }
@@ -59,7 +58,6 @@ export const fetchArtistById = async(artistId: string):Promise<ArtistType | unde
 
 // >>------> POST FNS FOR ARTISTS <------<<
 export const createArtist = async(prevState: State, formData: FormData) => {
-  // console.log('running post create Artist to: ', mongo_url)
   const validatedFields = FormSchema.safeParse({
     name: formData.get('name'),
     artistName: formData.get('artistName')
@@ -79,8 +77,6 @@ export const createArtist = async(prevState: State, formData: FormData) => {
     'artistName': artistName
   }
 
-  // console.log('POST BODY: ', postBody, ' to => ', mongo_url)
-
   try {
     const postResponse = await fetch(`${mongo_url}/artists`, {
       method: "POST",
@@ -91,7 +87,6 @@ export const createArtist = async(prevState: State, formData: FormData) => {
     })
 
     const postData = await postResponse.json()
-    console.log('POST DATA: ', postData)
 
     revalidatePath('/');
     return postData

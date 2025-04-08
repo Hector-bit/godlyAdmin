@@ -39,8 +39,22 @@ export const fetchSongsByAlbumId = async(albumId: string) => {
   }
 }
 
-export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[] | undefined> => {
-  const requestUrl = `${mongo_url}/albums/${artistId}`
+// export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[] | undefined> => {
+//   const requestUrl = `${mongo_url}/albums/${artistId}`
+
+//   try{
+//     const response = await fetch(requestUrl)
+//     const data = await response.json()
+//     // console.log('artist data: ', data)
+//     return data
+//   } catch(error) {
+//     console.error('could not fetch artist albums: ', error)
+//     return undefined
+//   }
+// }
+
+export const fetchAlbumByAlbumId = async(albumId: string):Promise<AlbumType | undefined> => {
+  const requestUrl = `${mongo_url}/albums/${albumId}`
 
   try{
     const response = await fetch(requestUrl)
@@ -53,24 +67,9 @@ export const fetchAlbumsByArtistId = async(artistId: string):Promise<AlbumType[]
   }
 }
 
-export const fetchAlbumByAlbumId = async(artistId: string):Promise<AlbumType[] | undefined> => {
-  const requestUrl = `${mongo_url}/albums/${artistId}`
-
-  try{
-    const response = await fetch(requestUrl)
-    const data = await response.json()
-    // console.log('artist data: ', data)
-    return data
-  } catch(error) {
-    console.error('could not fetch artist albums: ', error)
-    return undefined
-  }
-}
-
-// POST ALBUM FNS
+// >>------> POST FNS FOR ARTISTS <------<<
 
 export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormData) => {
-  console.log('running create album to: ', mongo_url)
 
   const validatedFields = AlbumSchema.safeParse({
     albumName: formData.get('albumName'),
@@ -115,6 +114,25 @@ export const postCreateAlbum = async(prevState: AlbumFormState, formData: FormDa
     console.error('could not create album: ', error)
   }
 
+  revalidatePath(`/artists/${artistId}`)
+  redirect(`/artists/${artistId}`)
+}
+
+// >>------> DELETE FNS FOR ARTISTS <------<<
+
+export const deleteAlbum = async(artistId: string, albumId: string) => {
+    const requestUrl = `${mongo_url}/albums/${albumId}`
+
+    try{
+      await fetch(requestUrl, {
+        method: 'DELETE'
+      })
+    } catch(error){
+      console.error('error deleteing album: ', error)
+      // TODO: THROW HTTP ERROR 
+      return 
+    }
+  
   revalidatePath(`/artists/${artistId}`)
   redirect(`/artists/${artistId}`)
 }

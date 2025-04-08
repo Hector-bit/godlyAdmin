@@ -1,6 +1,7 @@
 import { fetchSongs } from "@/app/actions/songActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
+import LinkBtn from "@/app/components/buttons/LinkBtn";
 
 export default async function AlbumPage(props: { params: Promise<{id:string, albumId: string}> }) {
   const params = await props.params;
@@ -16,19 +17,28 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
   return (
     <div className="flex flex-col gap-3 min-h-screen">
       <div className="flex flex-row justify-between items-center">
-        <div>album page {albumId}</div>
+        <LinkBtn href={`/artists/${artistId}`}>Back</LinkBtn>
 
         <Link 
           href={`/artists/${artistId}/album-manager/${albumId}/song-manager`}
           className="p-2 border border-black bg-cyan-500 text-white font-bold rounded-xl"
         >
-            Create Song
+            Edit Album
         </Link>
+      </div>
+      {/* ALBUM INFORMATION */}
+      <div className="flex flex-col border-2 border-black p-2 rounded-xl">
+        <div className="font-bold">Album Information</div>
+        <div>Album id: {albumId}</div>
+
       </div>
 
       {/* ALBUM SONGS */}
       <div className="flex flex-col rounded-xl">
-        <div className="mb-4">Songs: </div>
+        <div className="flex flex-row justify-between">
+          <div>Songs:</div>
+          <LinkBtn href={"/artists/${artistId}/album-manager/${albumId}/song-manager"} >Create Song</LinkBtn>
+        </div>
         <div className="flex flex-col gap-4">
           {albumSongs && albumSongs.map((song) => {
             return (

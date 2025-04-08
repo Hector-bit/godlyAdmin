@@ -28,13 +28,6 @@ export type State = {
   message?: string | null;
 };
 
-type ArtistFetchData = {
-  name: string
-  artistName: string
-  albums: string[]
-  songs: string[]
-}
-
 // >>------> GET FNS FOR ARTISTS <------<<
 
 export const fetchArtists = async():Promise<ArtistType[] | undefined> => {
@@ -49,7 +42,7 @@ export const fetchArtists = async():Promise<ArtistType[] | undefined> => {
   }
 }
 
-export const fetchArtistById = async(artistId: string):Promise<ArtistFetchData | undefined> => {
+export const fetchArtistById = async(artistId: string):Promise<ArtistType | undefined> => {
   try {
     const response = await fetch(`${mongo_url}/artists/${artistId}`)
     const data = await response.json()

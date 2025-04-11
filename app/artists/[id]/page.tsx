@@ -35,7 +35,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
       <div className="grid grid-cols-2 gap-4 sm:gap-8 text-sm">
         {/* ARTIST ALBUMS LIST */}
         <div>
-          <div className="flex flex-row items-center mb-4 gap-5">
+          <div className="flex flex-row items-center justify-between mb-4 gap-5">
             <div>Albums:</div>
             <LinkBtn 
               href={`/artists/${artistId}/album-manager`}
@@ -61,7 +61,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
 
         {/* ARTIST SINGLES */}
         <div className="flex flex-col">
-          <div className="flex flex-row items-center mb-4 gap-5">
+          <div className="flex flex-row items-center justify-between mb-4 gap-5">
             <div>Songs:</div>
             <LinkBtn 
               href={`/artists/${artistId}/single-manager`}

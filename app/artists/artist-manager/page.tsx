@@ -3,7 +3,7 @@
 import LinkBtn from "@/app/components/buttons/LinkBtn";
 import CreateArtistForm from "@/app/components/forms/CreateArtistForm";
 
-export default async function AlbumPage(props: { params: Promise<{id:string, albumId: string}> }) {
+export default async function AlbumPage() {
   // const params = await props.params;
   // const albumId = params.albumId
   // const artistId = params.id

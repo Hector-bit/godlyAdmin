@@ -10,7 +10,7 @@ export default function LoginForm() {
   return (
     <form action={loginAction} className="flex max-w-[300px] flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <input className="border rounded-xl p-2" id="username" name="username" placeholder="username" />
+        <input className="border rounded-xl p-2" id="username" name="username" placeholder="Username" />
       </div>
       {loginState?.errors?.username && (
         <p className="text-red-500">{loginState.errors.username}</p>

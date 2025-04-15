@@ -10,7 +10,7 @@ const testUser = {
 }
 
 const loginSchema = z.object({
-  username: z.string().email({ message: "Invalid email address" }).trim(),
+  username: z.string({ message: "Invalid username" }).trim(),
   password: z.string().min(8, { message: "Password must be at least 8 characters "}).trim()
 })
 

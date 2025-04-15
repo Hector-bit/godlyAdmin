@@ -8,7 +8,7 @@ export default async function LoginPage () {
 
   return (
     <div className="">
-      <div>GODLY LOGIN</div>
+      <div className="font-bold mb-4">GODLY LOGIN</div>
       <LoginForm/>
     </div>
   )

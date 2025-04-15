@@ -5,16 +5,24 @@ import { createSession, deleteSession } from "../lib/session";
 
 const testUser = {
   id: "1",
-  email: "rahdeshwithlove",
+  username: "rahdeshwithlove",
   password: "Crabbyapple1"
 }
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }).trim(),
+  username: z.string().email({ message: "Invalid email address" }).trim(),
   password: z.string().min(8, { message: "Password must be at least 8 characters "}).trim()
 })
 
-export async function login(prevState: any, formData: FormData){
+export type LoginState = {
+  errors?: {
+    username?: string[];
+    password?: string[];
+  };
+  // message?: string | null;
+};
+
+export async function login(prevState: LoginState, formData: FormData){
   const result = loginSchema.safeParse(Object.fromEntries(formData))
 
   if(!result.success){
@@ -23,13 +31,13 @@ export async function login(prevState: any, formData: FormData){
     } 
   }
 
-  const { email, password } = result.data;
+  const { username, password } = result.data;
 
   // password and email error message
-  if(email !== testUser.email || password !== testUser.password){
+  if(username !== testUser.username || password !== testUser.password){
     return {
-      erros: {
-        email: ["Invalid email or password"]
+      errors: {
+        username: ["Invalid username or password"]
       }
     }
   }

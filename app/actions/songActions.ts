@@ -105,6 +105,9 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
       songName: formData.get('songName'),
       albumId: formData.get('albumId'),
       artistId: formData.get('artistId'),
+      youtubeLink: formData.get('youtubeLink'),
+      spotifyLink: formData.get('spotifyLink'),
+      soundCloudLink: formData.get('soundCloudLink'),
 
     })
   
@@ -117,13 +120,15 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
       }
     }
   
-    const { songName, albumId, artistId } = validatedFields.data
+    const { songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink } = validatedFields.data
   
     const songPostBody = {
       "songName": songName,
       "albumId": albumId,
       "artistId": artistId,
-
+      "youtubeLink": youtubeLink,
+      "spotifyLink": spotifyLink,
+      "soundCloudLink": soundCloudLink,
     }
   
     const requestUrl = `${mongo_url}/songs`

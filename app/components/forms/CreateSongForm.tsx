@@ -12,6 +12,43 @@ export default function CreateSongForm(props: {artistId: string, albumId: string
   return (
     <form action={formAction}>
       <div className="rounded-md p-4  rounded-xl md:p-6">
+      <div className="mb-4">
+        <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+          ArtistId: {artistId}
+        </label>
+        <div className="relative mt-2 rounded-md">
+          <div className="relative">
+            <input
+              id="artistId"
+              name="artistId"
+              type='hidden'
+              defaultValue={artistId}
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+              aria-describedby='artist-error'
+            />
+          </div>
+        </div>
+        <div className="relative mt-2 rounded-md">
+          <div className="relative">
+            <input
+              id="albumId"
+              name="albumId"
+              type='hidden'
+              defaultValue={albumId}
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+              aria-describedby='artist-error'
+            />
+          </div>
+        </div>
+        <div id="artist-error" aria-live="polite" aria-atomic="true">
+          {state && state.errors?.artistId &&
+            state.errors?.artistId.map((error: string) => (
+              <p className="mt-2 text-sm text-red-500" key={error}>
+                {error}
+              </p>
+            ))}
+        </div>
+      </div>
         {/* Song Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">
@@ -37,26 +74,26 @@ export default function CreateSongForm(props: {artistId: string, albumId: string
           </div>
         </div>
 
-        {/* Artist Id */}
+        {/* YOUTUBE LINK */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            ArtistId: {artistId}
+          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+            Youtube Link
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="artistId"
-                name="artistId"
-                type='hidden'
-                defaultValue={artistId}
+                id="youtubeLink"
+                name="youtubeLink"
+                defaultValue={undefined}
+                placeholder='youtube link'
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
               />
             </div>
           </div>
           <div id="artist-error" aria-live="polite" aria-atomic="true">
-            {state && state.errors?.artistId &&
-              state.errors?.artistId.map((error: string) => (
+            {state && state.errors?.youtubeLink &&
+              state.errors?.youtubeLink.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -64,26 +101,26 @@ export default function CreateSongForm(props: {artistId: string, albumId: string
           </div>
         </div>
 
-        {/* Album Id */}
+        {/* SPOTIFY LINK */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Album id: {albumId}
+          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+            Spotify Link
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="albumId"
-                name="albumId"
-                type='hidden'
-                defaultValue={albumId}
+                id="spotifyLink"
+                name="spotifyLink"
+                placeholder='spotify link'
+                defaultValue={undefined}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
               />
             </div>
           </div>
           <div id="artist-error" aria-live="polite" aria-atomic="true">
-            {state && state.errors?.albumId &&
-              state.errors?.albumId.map((error: string) => (
+            {state && state.errors?.spotifyLink &&
+              state.errors?.spotifyLink.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -91,6 +128,32 @@ export default function CreateSongForm(props: {artistId: string, albumId: string
           </div>
         </div>
 
+        {/* SOUNDCLOUD LINK */}
+        <div className="mb-4">
+          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+            SoundCloud Link
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="soundCloudLink"
+                name="soundCloudLink"
+                placeholder='soundcloud link'
+                defaultValue={undefined}
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                aria-describedby='artist-error'
+              />
+            </div>
+          </div>
+          <div id="artist-error" aria-live="polite" aria-atomic="true">
+            {state && state.errors?.soundCloudLink &&
+              state.errors?.soundCloudLink.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
 
       </div>
       <div className="mt-6 flex justify-end gap-4">

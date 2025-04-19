@@ -1,6 +1,7 @@
 import { fetchSongBySongId } from "@/app/actions/songActions";
-import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
+import LinkBtn from "@/app/components/buttons/LinkBtn";
+import UpdateSinlgeForm from "@/app/components/forms/updateForms/UpdateSingleForm";
 
 
 export default async function SinglesPage(props: { params: Promise<{id: string, singleId: string}> }) {
@@ -17,9 +18,11 @@ export default async function SinglesPage(props: { params: Promise<{id: string, 
       {/* ARTIST INFORMATION  */}
       <div className="flex flex-row justify-between items-center">
         <div>Name: {singleData?.songName}</div>
-        <Link className="flex flex-row" href={`/artists/${artistId}/single-manager/${singleId}/edit`}>
-          EDIT <PencilSquareIcon className="w-[20px]"/>
-        </Link>
+        <LinkBtn href={`/artists/${artistId}/single-manager/${singleId}/edit`}>
+          <div className="flex flex-row p-2 gap-2">
+            EDIT <PencilSquareIcon className="w-[20px]"/>
+          </div>
+        </LinkBtn>
       </div>
       <div>Youtbe Link: {singleData?.youtubeLink}</div>
       <div>Spotify Link: {singleData?.spotifyLink}</div>

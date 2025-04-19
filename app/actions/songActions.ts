@@ -157,7 +157,7 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
 }
 
 export const postCreateSingle = async(prevState: SongFormState, formData: FormData) => {
-  console.log('running create album to: ', mongo_url)
+  // console.log('running create album to: ', mongo_url)
 
   const validatedFields = SongSchema.safeParse({
     songName: formData.get('songName'),
@@ -212,3 +212,10 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
   revalidatePath(`/artists/${artistId}`)
   redirect(`/artists/${artistId}`)
 }
+
+// UPDATE SONG FNS
+export const updateSingle = async(prevState: SongFormState, formData: FormData) => {
+
+}
+
+

@@ -19,7 +19,7 @@ export default async function EditSinglePage(props: { params: Promise<{id: strin
         <div>Name: {singleData?.songName}</div>
         <div>Youtbe Link: {singleData?.youtubeLink}</div>
         <div>Spotify Link: {singleData?.spotifyLink}</div>
-        <div>SoundCloud Link: {singleData?.soundCloundLink}</div>
+        <div>SoundCloud Link: {singleData?.soundCloudLink}</div>
         {/* <Link className="" href={}>
           <PencilSquareIcon/>
         </Link> */}

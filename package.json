@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@nestjs/platform-express": "^11.0.20",
     "bcryptjs": "^3.0.2",
     "jose": "^6.0.10",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.2",
     "next": "15.2.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
@@ -22,6 +24,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/express": "^5.0.1",
+    "@types/multer": "^1.4.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

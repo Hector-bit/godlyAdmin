@@ -14,7 +14,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
   const artistData = await fetchArtistById(artistId)
   // const artistAlbums = await fetchAlbumsByArtistId(artistId)
   const artistSingles = await fetchSinglesByArtistId(artistId)
-  console.log('artist info', artistData, artistSingles)
+  // console.log('artist info', artistData, artistSingles)
 
   return (
     <div className="flex flex-col gap-3 min-h-screen">

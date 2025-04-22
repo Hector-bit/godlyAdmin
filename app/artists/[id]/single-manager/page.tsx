@@ -1,4 +1,4 @@
-import CreateSingleForm from "@/app/components/forms/CreateSingleForm";
+import CreateSingleForm from "@/app/components/forms/createForms/CreateSingleForm";
 
 
 export default async function SingleManagerPage(props: { params: Promise<{id: string}> }) {

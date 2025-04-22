@@ -1,4 +1,4 @@
-import CreateSongForm from "@/app/components/forms/CreateSongForm";
+import CreateSongForm from "@/app/components/forms/createForms/CreateSongForm";
 
 
 export default async function SongPage(props: { params: Promise<{id: string, albumId: string}> }) {

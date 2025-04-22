@@ -6,5 +6,5 @@ export type SongType = {
   "albumId"?: string,
   "spotifyLink"?: string,
   "youtubeLink"?: string,
-  "soundCloundLink"?: string
+  "soundCloudLink"?: string
 }

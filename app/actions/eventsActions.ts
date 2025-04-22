@@ -7,13 +7,11 @@ import { redirect } from "next/navigation";
 const mongo_url = process.env.MONGO_URL
 
 const FormSchema = z.object({
-  name: z.string({
-    invalid_type_error: 'Please select a customer.',
+  title: z.string({
+    invalid_type_error: 'Please enter event title',
   }),
-  artistName: z.coerce
-    .string()
-    .optional()
-    .nullable()
+  description: z.string().optional(),
+  link: z.string().optional()
   // status: z.enum(['pending', 'paid'], {
   //   invalid_type_error: 'Please select an invoice status.',
   // }),
@@ -30,34 +28,20 @@ export type State = {
 
 // >>------> GET FNS FOR ARTISTS <------<<
 
-export const fetchArtists = async():Promise<ArtistType[] | undefined> => {
+export const getEvents = async():Promise<ArtistType[] | undefined> => {
   try{
-    const response = await fetch(`${mongo_url}/artists`)
+    const response = await fetch(`${mongo_url}/events`)
     const data = await response.json()
     // console.log('artist data: ', data)
     return data
   } catch(error) {
-    console.error('could not fetch artists: ', error)
+    console.error('could not get events: ', error)
     return undefined
   }
 }
-
-export const fetchArtistById = async(artistId: string):Promise<ArtistType | undefined> => {
-  try {
-    const response = await fetch(`${mongo_url}/artists/${artistId}`)
-    const data = await response.json()
-
-    return data
-  }
-  catch(error) {
-    console.error('Could not fetch artist', error)
-    return undefined
-  }
-}
-
 
 // >>------> POST FNS FOR ARTISTS <------<<
-export const createArtist = async(prevState: State, formData: FormData) => {
+export const createEvent = async(prevState: State, formData: FormData) => {
   const validatedFields = FormSchema.safeParse({
     name: formData.get('name'),
     artistName: formData.get('artistName')
@@ -70,11 +54,12 @@ export const createArtist = async(prevState: State, formData: FormData) => {
     };
   }
 
-  const { name, artistName } = validatedFields.data
+  const { title, description, link } = validatedFields.data
 
   const postBody = {
-    'name': name,
-    'artistName': artistName
+    'title': title,
+    'description': description,
+    'link': link
   }
 
   try {

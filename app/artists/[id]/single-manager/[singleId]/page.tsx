@@ -26,7 +26,7 @@ export default async function SinglesPage(props: { params: Promise<{id: string, 
       </div>
       <div>Youtbe Link: {singleData?.youtubeLink}</div>
       <div>Spotify Link: {singleData?.spotifyLink}</div>
-      <div>SoundCloud Link: {singleData?.soundCloundLink}</div>
+      <div>SoundCloud Link: {singleData?.soundCloudLink}</div>
     </div>
   );
 }

@@ -19,6 +19,17 @@ const SongSchema = z.object({
   // songs: z.array(SongSchema)
 });
 
+const UpdateSongSchema = z.object({
+  songId: z.coerce.string().nonempty(),
+  songName: z.coerce.string().optional(),
+  artistId: z.coerce.string().optional(),
+  albumId: z.coerce.string().optional(),
+  youtubeLink: z.coerce.string().optional(),
+  spotifyLink: z.coerce.string().optional(),
+  soundCloudLink: z.coerce.string().optional()
+  // songs: z.array(SongSchema)
+});
+
 
 export type SongFormState = {
   errors?: {
@@ -38,12 +49,9 @@ export type SongFormState = {
 export const fetchSongs = async(albumId?: string, artistId?: string):Promise<SongType[] | undefined> => {
   const requestUrl = `${mongo_url}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`&?artistId=${artistId}`:''}`
 
-  console.log('req url fron song fetch:', requestUrl, ' end')
-
   try{
     const response = await fetch(requestUrl)
     const data = await response.json()
-    // console.log('artist data: ', data)
     return data
   } catch(error) {
     console.error('could not fetch songs by album id: ', error)
@@ -58,7 +66,6 @@ export const fetchSongsByArtistId = async(artistId: string):Promise<ArtistType |
   try{
     const response = await fetch(requestUrl)
     const data = await response.json()
-    // console.log('artist data: ', data)
     return data
   } catch(error) {
     console.error('could not fetch artist songs: ', error)
@@ -72,7 +79,6 @@ export const fetchSongBySongId = async(songId: string):Promise<SongType | undefi
   try{
     const response = await fetch(requestUrl)
     const data = await response.json()
-    // console.log('artist data: ', data)
     return data
   } catch(error) {
     console.error('could not fetch artist songs: ', error)
@@ -88,7 +94,6 @@ export const fetchSinglesByArtistId = async(artistId: string):Promise<SongType[]
   try{
     const response = await fetch(requestUrl)
     const data = await response.json()
-    // console.log('artist data: ', data)
     return data
   } catch(error) {
     console.error('could not fetch artist songs: ', error)
@@ -99,7 +104,6 @@ export const fetchSinglesByArtistId = async(artistId: string):Promise<SongType[]
 // POST SONG FNS 
 
 export const postCreateSong = async(prevState: SongFormState, formData: FormData) => {
-    console.log('running create album to: ', mongo_url)
   
     const validatedFields = SongSchema.safeParse({
       songName: formData.get('songName'),
@@ -110,9 +114,7 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
       soundCloudLink: formData.get('soundCloudLink'),
 
     })
-  
-    // console.log('fields: ', validatedFields.success, validatedFields)
-  
+
     if(!validatedFields.success) {
       return {
         errors: validatedFields.error.flatten().fieldErrors,
@@ -132,7 +134,6 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
     }
   
     const requestUrl = `${mongo_url}/songs`
-    // console.log('request url: ', requestUrl)
   
     try {
       const response = await fetch(requestUrl, {
@@ -143,11 +144,8 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
         },
       })
   
-      // console.log('MY RESPONSE', response)
   
       const responseData = await response.json()
-  
-      console.log('create song post data: ', responseData)
     } catch(error) {
       console.error('could not create song: ', error)
     }
@@ -157,7 +155,6 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
 }
 
 export const postCreateSingle = async(prevState: SongFormState, formData: FormData) => {
-  // console.log('running create album to: ', mongo_url)
 
   const validatedFields = SongSchema.safeParse({
     songName: formData.get('songName'),
@@ -167,8 +164,6 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
     spotifyLink: formData.get('spotifyLink'),
     soundCloudLink: formData.get('soundCloudLink'),
   })
-
-  // console.log('fields: ', validatedFields.success, validatedFields)
 
   if(!validatedFields.success) {
     return {
@@ -189,7 +184,6 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
   }
 
   const requestUrl = `${mongo_url}/songs`
-  console.log('request body: ', songPostBody)
 
   try {
     const response = await fetch(requestUrl, {
@@ -200,11 +194,8 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
       },
     })
 
-    // console.log('MY RESPONSE', response)
-
     const responseData = await response.json()
 
-    console.log('create song post data: ', responseData)
   } catch(error) {
     console.error('could not create song: ', error)
   }
@@ -216,6 +207,57 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
 // UPDATE SONG FNS
 export const updateSingle = async(prevState: SongFormState, formData: FormData) => {
 
+  const validatedFields = UpdateSongSchema.safeParse({
+    songId: formData.get('songId'),
+    songName: formData.get('songName'),
+    // albumId: formData.get('albumId'),
+    artistId: formData.get('artistId'),
+    youtubeLink: formData.get('youtubeLink'),
+    spotifyLink: formData.get('spotifyLink'),
+    soundCloudLink: formData.get('soundCloudLink'),
+  })
+
+  if(!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing fields. failed to create song'
+    }
+  }
+
+  const { songId, songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink } = validatedFields.data
+
+  const songPostBody:any = {}
+
+  if(songName !== ''){songPostBody.songName = songName}
+  if(albumId !== ''){songPostBody.albumId = songName}
+  if(artistId !== ''){songPostBody.artistId = artistId}
+  if(youtubeLink !== ''){songPostBody.youtubeLink = youtubeLink}
+  if(spotifyLink !== ''){songPostBody.spotifyLink = spotifyLink}
+  if(soundCloudLink !== ''){songPostBody.soundCloudLink = soundCloudLink}
+
+  console.log('post body: ', songPostBody, console)
+
+  const requestUrl = `${mongo_url}/songs/${songId}`
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: "PUT",
+      body: JSON.stringify(songPostBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+
+    const responseData = await response.json()
+
+    console.log('update song data: ', responseData)
+  } catch(error) {
+    console.error('could not update song: ', error)
+  }
+
+  revalidatePath(`/artists/${artistId}`)
+  redirect(`/artists/${artistId}`)
 }
 
 

@@ -11,7 +11,7 @@ const LinkBtn = ({href, children, classname }:LinkBtnType):ReactElement => {
   return (
     <Link 
       href={href}
-      className={`${classname}p-2 border border-black bg-cyan-500 rounded-xl`}
+      className={`${classname} p-2 border border-black bg-cyan-500 rounded-xl`}
     >
       <div className="text-sm text-white text-center font-bold">{children}</div>
     </Link>

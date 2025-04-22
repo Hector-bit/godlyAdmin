@@ -1,11 +1,11 @@
 'use client'
 import { useActionState } from 'react';
 // import { postCreateSong, SongFormState } from '@/app/actions/songActions';
-import { postCreateSingle, SongFormState } from '@/app/actions/songActions';
+import { updateSingle, SongFormState } from '@/app/actions/songActions';
 
 export default function UpdateSinlgeForm(props: {artistId: string, singleId: string}) {
   const initialState: SongFormState = { message: null, errors: {} };
-  const [state, formAction] = useActionState(postCreateSingle, initialState);
+  const [state, formAction] = useActionState(updateSingle, initialState);
 
   const artistId = props.artistId
   const singleId = props.singleId 

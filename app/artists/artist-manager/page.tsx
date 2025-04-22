@@ -1,7 +1,7 @@
 // import { fetchSongs } from "@/app/actions/songActions";
 // import { fetchAlbumByAlbumId } from "@/app/actions/albumsActions";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
-import CreateArtistForm from "@/app/components/forms/CreateArtistForm";
+import CreateArtistForm from "@/app/components/forms/createForms/CreateArtistForm";
 
 export default async function AlbumPage() {
   // const params = await props.params;

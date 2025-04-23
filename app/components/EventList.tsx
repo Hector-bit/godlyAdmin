@@ -1,4 +1,3 @@
-import { EventType } from "next-auth"
 import { getEvents } from "../actions/eventsActions"
 import Image from "next/image"
 import Link from "next/link"

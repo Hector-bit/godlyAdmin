@@ -144,8 +144,8 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
         },
       })
   
+      await response.json()
   
-      const responseData = await response.json()
     } catch(error) {
       console.error('could not create song: ', error)
     }
@@ -194,7 +194,7 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
       },
     })
 
-    const responseData = await response.json()
+    await response.json()
 
   } catch(error) {
     console.error('could not create song: ', error)
@@ -226,7 +226,23 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
 
   const { songId, songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink } = validatedFields.data
 
-  const songPostBody:any = {}
+  type songPostType = {
+    songName: string | undefined
+    albumId: string | undefined
+    artistId: string | undefined
+    youtubeLink: string | undefined
+    spotifyLink: string | undefined
+    soundCloudLink: string | undefined
+  }
+
+  const songPostBody:songPostType = {
+    songName: undefined,
+    albumId: undefined,
+    artistId: undefined,
+    youtubeLink: undefined,
+    spotifyLink: undefined,
+    soundCloudLink: undefined
+  }
 
   if(songName !== ''){songPostBody.songName = songName}
   if(albumId !== ''){songPostBody.albumId = songName}
@@ -249,9 +265,9 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
     })
 
 
-    const responseData = await response.json()
+    await response.json()
 
-    console.log('update song data: ', responseData)
+    // console.log('update song data: ', responseData)
   } catch(error) {
     console.error('could not update song: ', error)
   }

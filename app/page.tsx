@@ -1,7 +1,6 @@
 import ArtistList from "./components/ArtistList";
 import LinkBtn from "./components/buttons/LinkBtn";
 
-
 export default async function Home() {
 
   return (

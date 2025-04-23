@@ -1,7 +1,7 @@
 'use server'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache';
-import { ArtistType } from '../lib/types/artistTypes';
+import { EventType } from '../lib/types/eventTypes';
 import { redirect } from "next/navigation";
 
 const mongo_url = process.env.MONGO_URL
@@ -11,24 +11,27 @@ const FormSchema = z.object({
     invalid_type_error: 'Please enter event title',
   }),
   description: z.string().optional(),
-  link: z.string().optional()
+  link: z.string().optional(),
+  imgLink: z.string().optional()
   // status: z.enum(['pending', 'paid'], {
   //   invalid_type_error: 'Please select an invoice status.',
   // }),
   // date: z.string(),
 });
 
-export type State = {
+export type EventState = {
   errors?: {
-    name?: string[];
-    artistName?: string[];
+    title?: string[]
+    description?: string[]
+    link?: string[]
+    imgLink?: string[]
   };
   message?: string | null;
 };
 
 // >>------> GET FNS FOR ARTISTS <------<<
 
-export const getEvents = async():Promise<ArtistType[] | undefined> => {
+export const getEvents = async():Promise<EventType[] | undefined> => {
   try{
     const response = await fetch(`${mongo_url}/events`)
     const data = await response.json()
@@ -41,10 +44,12 @@ export const getEvents = async():Promise<ArtistType[] | undefined> => {
 }
 
 // >>------> POST FNS FOR ARTISTS <------<<
-export const createEvent = async(prevState: State, formData: FormData) => {
+export const createEvent = async(prevState: EventState | undefined, formData: FormData) => {
   const validatedFields = FormSchema.safeParse({
-    name: formData.get('name'),
-    artistName: formData.get('artistName')
+    title: formData.get('title'),
+    description: formData.get('description'),
+    link: formData.get('link'),
+    imgLink: formData.get('imgLink')
   })
 
   if (!validatedFields.success) {
@@ -54,16 +59,17 @@ export const createEvent = async(prevState: State, formData: FormData) => {
     };
   }
 
-  const { title, description, link } = validatedFields.data
+  const { title, description, link, imgLink } = validatedFields.data
 
   const postBody = {
     'title': title,
     'description': description,
-    'link': link
+    'link': link,
+    'imgLink': imgLink
   }
 
   try {
-    const postResponse = await fetch(`${mongo_url}/artists`, {
+    const postResponse = await fetch(`${mongo_url}/events`, {
       method: "POST",
       body: JSON.stringify(postBody),
       headers: {
@@ -72,13 +78,14 @@ export const createEvent = async(prevState: State, formData: FormData) => {
     })
 
     const postData = await postResponse.json()
+    console.log('created event:', postData)
 
-    revalidatePath('/');
-    return postData
   } catch(error) {
-    console.error('could not post artist: ', error)
+    console.error('could not post event: ', error)
     return undefined
   }
+  revalidatePath('/events');
+  redirect(`/events`)
 }
 
 // >>------> DELETE FNS FOR ARTISTS <------<<

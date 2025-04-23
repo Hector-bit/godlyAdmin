@@ -1,10 +1,11 @@
 'use client'
 import { useActionState } from 'react';
-import { createArtist, State } from '@/app/actions/artistActions'
+// import { createArtist, State } from '@/app/actions/artistActions'
+import { createEvent, EventState } from '@/app/actions/eventsActions';
 
 export default function CreateEventForm() {
-  const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createArtist, initialState);
+  const initialState: EventState = { message: null, errors: {} };
+  const [state, formAction] = useActionState(createEvent, initialState);
 
   return (
     <form action={formAction}>
@@ -43,7 +44,7 @@ export default function CreateEventForm() {
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-              <input
+              <textarea
                 id="description"
                 name="description"
                 defaultValue=""
@@ -89,6 +90,33 @@ export default function CreateEventForm() {
               ))}
           </div>
         </div>
+
+        {/* Event image Link */}
+        <div className="mb-4">
+          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+            Image Link
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="imgLink"
+                name="imgLink"
+                defaultValue=""
+                placeholder="imgLink"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                aria-describedby='event-error'
+              />
+            </div>
+          </div>
+          <div id="event-error" aria-live="polite" aria-atomic="true">
+            {state && state.errors?.imgLink &&
+              state.errors?.imgLink.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         {/* <Link
@@ -97,7 +125,7 @@ export default function CreateEventForm() {
         >
           Cancel
         </Link> */}
-        <button className='border border-2 rounded-md p-4' type="submit">Create Artist</button>
+        <button className='border border-2 rounded-md p-4' type="submit">Create Event</button>
       </div>
     </form>
   );

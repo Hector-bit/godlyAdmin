@@ -44,8 +44,7 @@ export type SongFormState = {
 };
 
 
-// GET SONGS FNS
-
+// >>------> GET FNS FOR SONGS/SINGLES <------<<
 export const fetchSongs = async(albumId?: string, artistId?: string):Promise<SongType[] | undefined> => {
   const requestUrl = `${mongo_url}/songs${albumId?`?albumId=${albumId}`:''}${artistId?`&?artistId=${artistId}`:''}`
 
@@ -101,7 +100,7 @@ export const fetchSinglesByArtistId = async(artistId: string):Promise<SongType[]
   }
 }
 
-// POST SONG FNS 
+// >>------> UPDATE FNS FOR SONGS <------<<
 
 export const postCreateSong = async(prevState: SongFormState, formData: FormData) => {
   
@@ -154,6 +153,7 @@ export const postCreateSong = async(prevState: SongFormState, formData: FormData
     redirect(`/artists/${artistId}/album-manager/${albumId}`)
 }
 
+// >>------> POST FNS FOR SINGLES <------<<
 export const postCreateSingle = async(prevState: SongFormState, formData: FormData) => {
 
   const validatedFields = SongSchema.safeParse({
@@ -204,7 +204,7 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
   redirect(`/artists/${artistId}`)
 }
 
-// UPDATE SONG FNS
+// >>------> UPDATE FNS FOR SONGS/SINGLES <------<<
 export const updateSingle = async(prevState: SongFormState, formData: FormData) => {
 
   const validatedFields = UpdateSongSchema.safeParse({
@@ -277,3 +277,24 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
 }
 
 
+// >>------> DELETE FNS FOR SONGS/SINGLES <------<<
+export const deleteSong = async(songId: string, artistId: string, albumId: string):Promise<void> => {
+  try {
+    await fetch(`${mongo_url}/songs/${songId}`,
+      {
+        method: 'DELETE'
+      }
+    )
+
+    // const data = await response.json()
+    // console.log('artist delete data', data)
+  }
+  catch(error) {
+    console.error('Could not delete event', error)
+    //TODO: THROW HTTP ERROR INSTEAD
+    return
+  }
+
+  revalidatePath(`/artists/${artistId}/album-manager/${albumId}`)
+  redirect(`/artists/${artistId}/album-manager/${albumId}`)
+}

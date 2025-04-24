@@ -1,15 +1,16 @@
-import { fetchSongBySongId } from "@/app/actions/songActions";
+import EditSongForm from "@/app/components/forms/editForm/EditSongForm";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
-import { PencilSquareIcon } from "@heroicons/react/16/solid";
+import DeleteModel from "@/app/components/DeleteModel";
+import DeleteSongBtn from "@/app/components/buttons/DeleteSongBtn";
+import { fetchSongBySongId } from "@/app/actions/songActions";
 
-
-export default async function SongIdPage(props: { params: Promise<{ id: string, albumId: string, songId: string }> }) {
+export default async function EditSongPage(props: { params: Promise<{id: string, albumId: string, songId: string}> }) {
   const params = await props.params;
   const songId = params.songId
   const artistId = params.id
   const albumId = params.albumId
 
-  const songInfo = await fetchSongBySongId(songId)
+    const songInfo = await fetchSongBySongId(songId)
 
   // const albumSongs = await fetchSongs(albumId)
 
@@ -22,11 +23,11 @@ export default async function SongIdPage(props: { params: Promise<{ id: string, 
       <div className="flex flex-row justify-between items-center">
         <LinkBtn href={`/artists/${artistId}/album-manager/${albumId}`}>Back</LinkBtn>
         <div className="font-bold text-xl">{songInfo?.songName}</div>
-        <LinkBtn href={`/artists/${artistId}/album-manager/${albumId}/song-manager/${songId}/edit`}>
-          <div className="flex flex-row p-2 gap-2">
-            EDIT <PencilSquareIcon className="w-[20px]"/>
-          </div>
-        </LinkBtn>
+        <DeleteModel 
+          deleteBtn={<DeleteSongBtn songId={songId} artistId={artistId} albumId={albumId}/>}
+        >
+          Delete Song
+        </DeleteModel>
       </div>
       song page {songId}
 
@@ -41,6 +42,7 @@ export default async function SongIdPage(props: { params: Promise<{ id: string, 
 
         })}
       </div> */}
+      <EditSongForm artistId={artistId} albumId={albumId}/>
     </div>
   );
 }

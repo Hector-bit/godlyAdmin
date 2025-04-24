@@ -1,6 +1,7 @@
 import { getEvents } from "../actions/eventsActions"
 import Image from "next/image"
 import Link from "next/link"
+import LinkBtn from "./buttons/LinkBtn"
 
 export default async function EventList () {
   const events = await getEvents()
@@ -19,7 +20,12 @@ export default async function EventList () {
               <div>{event.description}</div>
               <Link className="text-cyan-600 " href={eventLink}>Event Link</Link>
             </div>
-            <Image className="max-h-[200px] max-w-[200px]" src={eventImg} alt={"event"} width={200} height={200}/>
+            <div className="flex flex-col gap-4 items-end">
+              <LinkBtn href={`/events/${event._id}`}>
+                More Details
+              </LinkBtn>
+              <Image className="max-h-[200px] max-w-[200px]" src={eventImg} alt={"event"} width={200} height={200}/>
+            </div>
           </div>
         )
       })}

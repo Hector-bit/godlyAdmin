@@ -31,6 +31,18 @@ export type EventState = {
 
 // >>------> GET FNS FOR ARTISTS <------<<
 
+export const getEvent = async(eventId: string): Promise<EventType | undefined> => {
+  try{
+    const response = await fetch(`${mongo_url}/events/${eventId}`)
+    const data = await response.json()
+    // console.log('artist data: ', data)
+    return data
+  } catch(error) {
+    console.error('could not get events: ', error)
+    return undefined
+  }
+}
+
 export const getEvents = async():Promise<EventType[] | undefined> => {
   try{
     const response = await fetch(`${mongo_url}/events`)
@@ -88,10 +100,56 @@ export const createEvent = async(prevState: EventState | undefined, formData: Fo
   redirect(`/events`)
 }
 
-// >>------> DELETE FNS FOR ARTISTS <------<<
-export const deleteArtist = async(artistId: string):Promise<void> => {
+// >>------> PUT FNS FOR ARTISTS <------<<
+
+export const updateEvent = async(prevState: EventState | undefined, formData: FormData) => {
+  const validatedFields = FormSchema.safeParse({
+    title: formData.get('title'),
+    description: formData.get('description'),
+    link: formData.get('link'),
+    imgLink: formData.get('imgLink')
+  })
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Invoice.',
+    };
+  }
+
+  const { title, description, link, imgLink } = validatedFields.data
+
+  const postBody = {
+    'title': title,
+    'description': description,
+    'link': link,
+    'imgLink': imgLink
+  }
+
   try {
-    await fetch(`${mongo_url}/artists/${artistId}`,
+    const postResponse = await fetch(`${mongo_url}/events`, {
+      method: "POST",
+      body: JSON.stringify(postBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    const postData = await postResponse.json()
+    console.log('created event:', postData)
+
+  } catch(error) {
+    console.error('could not post event: ', error)
+    return undefined
+  }
+  revalidatePath('/events');
+  redirect(`/events`)
+}
+
+// >>------> DELETE FNS FOR EVENTS <------<<
+export const deleteEvent = async(eventId: string):Promise<void> => {
+  try {
+    await fetch(`${mongo_url}/events/${eventId}`,
       {
         method: 'DELETE'
       }
@@ -101,11 +159,11 @@ export const deleteArtist = async(artistId: string):Promise<void> => {
     // console.log('artist delete data', data)
   }
   catch(error) {
-    console.error('Could not fetch artist', error)
+    console.error('Could not delete event', error)
     //TODO: THROW HTTP ERROR INSTEAD
     return
   }
 
-  revalidatePath(`/`)
-  redirect(`/`)
+  revalidatePath(`/events`)
+  redirect(`/events`)
 }

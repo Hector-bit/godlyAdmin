@@ -13,7 +13,7 @@ export default async function SinglesPage(props: { params: Promise<{id: string, 
 
   return (
     <div className="flex flex-col gap-3 min-h-screen">
-      {/* ARTIST INFORMATION  */}
+      {/* SINGLE UTILITY  */}
       <div className="flex flex-row justify-between items-center">
         <div>Name: {singleData?.songName}</div>
         <LinkBtn href={`/artists/${artistId}/single-manager/${singleId}/edit`}>

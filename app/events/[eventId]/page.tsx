@@ -32,6 +32,7 @@ export default async function EventPage (props: {params: Promise<{eventId: strin
           <div className="font-bold text-xl">{eventDetails?.title}</div>
           <div>{eventDetails?.description}</div>
           <Link className="text-cyan-600 " href={eventLink}>eventDetails. Link</Link>
+          <div>{eventDetails?.imgLink}</div>
         </div>
         <div className="flex flex-col gap-4 items-end">
           <Image className="max-h-[200px] max-w-[200px]" src={eventImg} alt={"event"} width={200} height={200}/>

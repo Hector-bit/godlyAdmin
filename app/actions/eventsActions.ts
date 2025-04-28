@@ -128,7 +128,7 @@ export const updateEvent = async(prevState: EventState | undefined, formData: Fo
 
   try {
     const postResponse = await fetch(`${mongo_url}/events`, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(postBody),
       headers: {
         "Content-Type": "application/json",

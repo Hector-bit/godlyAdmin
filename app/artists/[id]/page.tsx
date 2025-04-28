@@ -30,6 +30,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         <div>Name: {artistData?.name}</div>
         <div>Artist Name: {artistData?.artistName}</div>
         <div>Artist Id: {artistData?._id}</div>
+        <div>Artist img link: {artistData?.img}</div>
       </div>
       {/* ARTIST SONGS & ALBUMS */}
       <div className="grid grid-cols-2 gap-4 sm:gap-8 text-sm">

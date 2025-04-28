@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ArtistList from "./components/ArtistList";
 import LinkBtn from "./components/buttons/LinkBtn";
 

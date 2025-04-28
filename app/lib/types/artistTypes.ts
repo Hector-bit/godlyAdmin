@@ -5,6 +5,7 @@ export type ArtistType = {
   name: string
   artistName?: string
   albums: AlbumType[]
+  img?: string
   __v: number
 }
 

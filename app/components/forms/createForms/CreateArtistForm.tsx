@@ -1,9 +1,11 @@
 'use client'
 import { useActionState } from 'react';
-import { createArtist, State } from '@/app/actions/artistActions'
+import { createArtist, ArtistState } from '@/app/actions/artistActions'
 
 export default function CreateArtistForm() {
-  const initialState: State = { message: null, errors: {} };
+  const initialState: ArtistState = { message: null, errors: {
+    artistId: []
+  } };
   const [state, formAction] = useActionState(createArtist, initialState);
 
   return (

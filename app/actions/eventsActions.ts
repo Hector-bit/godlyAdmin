@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 const mongo_url = process.env.MONGO_URL
 
 const FormSchema = z.object({
+  eventId: z.coerce.string(),
   title: z.string({
     invalid_type_error: 'Please enter event title',
   }),
@@ -21,6 +22,7 @@ const FormSchema = z.object({
 
 export type EventState = {
   errors?: {
+    eventId?: string[]
     title?: string[]
     description?: string[]
     link?: string[]
@@ -100,10 +102,11 @@ export const createEvent = async(prevState: EventState | undefined, formData: Fo
   redirect(`/events`)
 }
 
-// >>------> PUT FNS FOR ARTISTS <------<<
+// >>------> PUT FNS FOR EVENTS <------<<
 
 export const updateEvent = async(prevState: EventState | undefined, formData: FormData) => {
   const validatedFields = FormSchema.safeParse({
+    eventId: formData.get('eventId'),
     title: formData.get('title'),
     description: formData.get('description'),
     link: formData.get('link'),
@@ -117,7 +120,7 @@ export const updateEvent = async(prevState: EventState | undefined, formData: Fo
     };
   }
 
-  const { title, description, link, imgLink } = validatedFields.data
+  const { eventId, title, description, link, imgLink } = validatedFields.data
 
   const postBody = {
     'title': title,
@@ -127,8 +130,8 @@ export const updateEvent = async(prevState: EventState | undefined, formData: Fo
   }
 
   try {
-    const postResponse = await fetch(`${mongo_url}/events`, {
-      method: "PUT",
+    const postResponse = await fetch(`${mongo_url}/events/${eventId}`, {
+      method: "PATCH",
       body: JSON.stringify(postBody),
       headers: {
         "Content-Type": "application/json",

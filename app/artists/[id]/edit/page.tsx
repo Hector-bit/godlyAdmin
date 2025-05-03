@@ -2,7 +2,7 @@ import { fetchArtistById } from "@/app/actions/artistActions";
 import DeleteArtistBtn from "@/app/components/buttons/DeleteArtistBtn";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
 import DeleteModel from "@/app/components/DeleteModel";
-import UpdateArtistForm from "@/app/components/forms/updateForms/UpdateArtistForm";
+import EditArtistForm from "@/app/components/forms/editForm/EditArtistForm";
 
 export default async function ArtistEditPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
@@ -18,7 +18,7 @@ export default async function ArtistEditPage(props: { params: Promise<{ id: stri
         <div></div>
       </div>
       {artistInfo &&
-        <UpdateArtistForm artistInfo={artistInfo}/>
+        <EditArtistForm artistInfo={artistInfo}/>
       }
       <div className="my-8"/>
       <DeleteModel

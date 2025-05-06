@@ -1,6 +1,5 @@
 import { fetchSongBySongId } from "@/app/actions/songActions";
-// import CreateSongForm from "@/app/components/forms/CreateSongForm";
-import UpdateSinlgeForm from "@/app/components/forms/updateForms/UpdateSingleForm";
+// import EditSingleForm from "@/app/components/forms/editForm/EditSingleForm";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
 import DeleteSingleBtn from "@/app/components/buttons/DeleteSingleBtn";
 import DeleteModel from "@/app/components/DeleteModel";
@@ -43,7 +42,7 @@ export default async function EditSinglePage(props: { params: Promise<{id: strin
         </Link> */}
       </div>
       {/* <CreateSongForm artistId={artistId}/> */}
-      <UpdateSinlgeForm artistId={artistId} singleId={singleId}/>
+      {/* <EditSingleForm artistId={artistId} singleId={singleId}/> */}
     </div>
   );
 }

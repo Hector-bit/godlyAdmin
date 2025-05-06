@@ -21,7 +21,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
             name="eventId"
             type='hidden'
             defaultValue={eventInfo._id}
-            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+            className="peer block w-full rounded-md border border-gray-200 p-3"
             aria-describedby='artist-error'
           />
         </div>
@@ -44,7 +44,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
             <input               
               id="title"
               name="title"
-              className="peer block w-full cursor-pointer rounded-md py-2 pl-10 border border-gray-200"
+              className="peer block w-full cursor-pointer rounded-md p-3 border border-gray-200"
               defaultValue={eventInfo.title}
               placeholder="Title"
               aria-describedby='artist-error'>
@@ -62,7 +62,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
 
         {/* EVENT DESCRIPTION */}
         <div className="mb-4">
-          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+          <label htmlFor="event" className="mb-2 block text-sm font-medium">
             Description
           </label>
           <div className="relative mt-2 rounded-md">
@@ -72,7 +72,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
                 name="description"
                 defaultValue={eventInfo.description}
                 placeholder='youtube link'
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                className="peer block w-full rounded-md border border-gray-200 p-3 min-h-[260px]"
                 aria-describedby='artist-error'
               />
             </div>
@@ -89,7 +89,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
 
         {/* EVENT LINK */}
         <div className="mb-4">
-          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+          <label htmlFor="event" className="mb-2 block text-sm font-medium">
             Event Link
           </label>
           <div className="relative mt-2 rounded-md">
@@ -99,7 +99,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
                 name="link"
                 defaultValue={eventInfo.link}
                 placeholder='youtube link'
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                className="peer block w-full rounded-md border border-gray-200 p-3"
                 aria-describedby='artist-error'
               />
             </div>
@@ -116,7 +116,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
 
         {/* EVENT IMAGE */}
         <div className="mb-4">
-          <label htmlFor="album" className="mb-2 block text-sm font-medium">
+          <label htmlFor="event" className="mb-2 block text-sm font-medium">
             Event Image
           </label>
           <div className="relative mt-2 rounded-md">
@@ -126,7 +126,7 @@ export default function EditEventForm(props: {eventInfo: EventType}) {
                 name="imgLink"
                 defaultValue={eventInfo.imgLink}
                 placeholder='youtube img'
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                className="peer block w-full rounded-md border border-gray-200 p-3"
                 aria-describedby='artist-error'
               />
             </div>

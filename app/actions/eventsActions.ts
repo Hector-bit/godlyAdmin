@@ -102,7 +102,7 @@ export const createEvent = async(prevState: EventState | undefined, formData: Fo
   redirect(`/events`)
 }
 
-// >>------> PUT FNS FOR EVENTS <------<<
+// >>------> PATCH FNS FOR EVENTS <------<<
 
 export const updateEvent = async(prevState: EventState | undefined, formData: FormData) => {
   const validatedFields = FormSchema.safeParse({

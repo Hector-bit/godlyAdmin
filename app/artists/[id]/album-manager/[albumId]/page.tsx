@@ -1,19 +1,20 @@
 // import { fetchSongs } from "@/app/actions/songActions";
-import { fetchAlbumByAlbumId } from "@/app/actions/albumsActions";
+import { getAlbumByAlbumId } from "@/app/actions/albumsActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
+import Image from "next/image";
 
 export default async function AlbumPage(props: { params: Promise<{id:string, albumId: string}> }) {
   const params = await props.params;
   const albumId = params.albumId
   const artistId = params.id
 
-  const albumInfo = await fetchAlbumByAlbumId(albumId)
+  const albumInfo = await getAlbumByAlbumId(albumId)
 
   // const artistData = await fetchArtistById(artistId)
   // const artistAlbums = await fetchAlbumsByArtistId(artistId)
-  // console.log('songs info', albumInfo, albumId)
+  // console.log('album info', albumInfo)
 
   return (
     <div className="flex flex-col gap-3 min-h-screen">
@@ -28,10 +29,13 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
         </Link>
       </div>
       {/* ALBUM INFORMATION */}
-      <div className="flex flex-col border-2 border-black p-2 rounded-xl">
-        <div className="font-bold">Album Information</div>
-        <div>Album id: {albumId}</div>
-        <div>Album name: {albumInfo?.albumName}</div>
+      <div className="flex flex-row justify-between border-2 border-black p-2 rounded-xl">
+        <div className="flex flex-col">
+          <div className="font-bold">Album Information</div>
+          <div>Album id: {albumInfo?._id}</div>
+          <div>Album name: {albumInfo?.albumName}</div>
+        </div>
+        <Image src={albumInfo?.img ? albumInfo.img : '/globe.svg'} alt={"album cover"} width={300} height={300}/>
 
       </div>
 

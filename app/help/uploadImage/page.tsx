@@ -30,7 +30,7 @@ export default async function UploadImagePage () {
 
                 Drag and drop an image into the window,
 
-                Click "Choose Photo/Video" to browse your computer and select a file,
+                Click `&ldquo;Choose Photo/Video`&ldquo; to browse your computer and select a file,
 
                 Paste an image URL if your image is online.
 
@@ -44,7 +44,7 @@ export default async function UploadImagePage () {
 
       </div>
       <div className="border border-black p-2 my-2 rounded-xl">
-        <div>NOTE: you can also right click an image and click 'copy image link'</div>
+        <div>NOTE: you can also right click an image and click `&ldquo;copy image link`&ldquo;</div>
         <div>Example: https://i.imgur.com/EqCrK53.jpg</div>
       </div>
       <Image src={"/exampleImgur.png"} alt={"imgur example"} width={600} height={600}/>

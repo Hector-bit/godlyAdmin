@@ -4,8 +4,11 @@ import { fetchSinglesByArtistId } from "@/app/actions/songActions";
 import Link from "next/link";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
+import Image from "next/image";
 // import Image from "next/image";
 // import { InstagramImage } from "@/app/components/InstagarmImage";
+import AlbumCard from "@/app/components/Cards/AlbumCard";
+import SingleCard from "@/app/components/Cards/SingleCard";
 
 export default async function ArtistPage(props: { params: Promise<{id: string}> }) {
   const params = await props.params;
@@ -33,7 +36,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         <div>Artist img link: {artistData?.img?.slice(0,30)}</div>
       </div>
       {/* ARTIST SONGS & ALBUMS */}
-      <div className="grid grid-cols-2 gap-4 sm:gap-8 text-sm">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 text-sm">
         {/* ARTIST ALBUMS LIST */}
         <div>
           <div className="flex flex-row items-center justify-between mb-4 gap-5">
@@ -47,13 +50,9 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
           <div className="flex flex-col gap-4">
             {/* ALBUMS LIST */}
             {artistData && artistData.albums.map((album) => {
+
               return (
-                <div key={album._id} className="flex flex-row justify-between border border-black p-4 rounded-xl">
-                  <div>Album: {album.albumName}</div>
-                  <Link href={`/artists/${artistId}/album-manager/${album._id}`}>
-                    <PencilSquareIcon className="w-[20px]"/>
-                  </Link>
-                </div>
+                <AlbumCard key={album._id} album={album}/>
               )
             })}
           </div>
@@ -74,12 +73,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
           <div className="flex flex-col gap-4">
             {artistSingles && artistSingles.map((song) => {
               return (
-                <div key={song._id} className="flex flex-row justify-between border border-black p-4 rounded-xl">
-                  <div>Single: {song.songName}</div>
-                  <Link href={`/artists/${artistId}/single-manager/${song._id}`}>
-                    <PencilSquareIcon className="w-[20px]"/>
-                  </Link>
-                </div>
+                <SingleCard key={song._id} song={song}/>
               )
             })}
           </div>

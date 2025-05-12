@@ -4,6 +4,7 @@ export type SongType = {
   "songName": string,
   "artistId": string,
   "albumId"?: string,
+  "img"?: string,
   "spotifyLink"?: string,
   "youtubeLink"?: string,
   "soundCloudLink"?: string

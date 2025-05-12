@@ -42,7 +42,7 @@ export default function CreateSingleForm(props: {artistId: string}) {
         {/* Song Name */}
         <div className="mb-4">
           <label htmlFor="artist" className="mb-2 block text-sm font-medium">
-            Song name
+            Single name
           </label>
           <div className="relative">
             <input               
@@ -57,6 +57,33 @@ export default function CreateSingleForm(props: {artistId: string}) {
           <div id="artist-error" aria-live="polite" aria-atomic="true">
             {state && state.errors?.songName &&
               state.errors.songName.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        {/* YOUTUBE LINK */}
+        <div className="mb-4">
+          <label htmlFor="img" className="mb-2 block text-sm font-medium">
+            Single Image Link
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="img"
+                name="img"
+                defaultValue={undefined}
+                placeholder='single image link'
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                aria-describedby='artist-error'
+              />
+            </div>
+          </div>
+          <div id="artist-error" aria-live="polite" aria-atomic="true">
+            {state && state.errors?.img &&
+              state.errors?.img.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

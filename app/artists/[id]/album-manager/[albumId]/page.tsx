@@ -29,7 +29,7 @@ export default async function AlbumPage(props: { params: Promise<{id:string, alb
         </Link>
       </div>
       {/* ALBUM INFORMATION */}
-      <div className="flex flex-row justify-between border-2 border-black p-2 rounded-xl">
+      <div className="flex flex-col sm:flex-row justify-between border-2 border-black p-2 rounded-xl">
         <div className="flex flex-col">
           <div className="font-bold">Album Information</div>
           <div>Album id: {albumInfo?._id}</div>

@@ -10,20 +10,11 @@ import { SongType } from "../lib/types/songTypes";
 const mongo_url = process.env.MONGO_URL
 
 const SongSchema = z.object({
+  _id: z.coerce.string().optional(),
   songName: z.coerce.string().nonempty(),
   artistId: z.coerce.string().nonempty(),
   albumId: z.coerce.string().optional(),
-  youtubeLink: z.coerce.string().optional(),
-  spotifyLink: z.coerce.string().optional(),
-  soundCloudLink: z.coerce.string().optional()
-  // songs: z.array(SongSchema)
-});
-
-const UpdateSongSchema = z.object({
-  songId: z.coerce.string().nonempty(),
-  songName: z.coerce.string().optional(),
-  artistId: z.coerce.string().optional(),
-  albumId: z.coerce.string().optional(),
+  img: z.coerce.string().optional(),
   youtubeLink: z.coerce.string().optional(),
   spotifyLink: z.coerce.string().optional(),
   soundCloudLink: z.coerce.string().optional()
@@ -34,6 +25,7 @@ const UpdateSongSchema = z.object({
 export type SongFormState = {
   errors?: {
     songName?: string[];
+    img?: string[];
     artistId?: string[];
     albumId?: string[];
     youtubeLink?: string[];
@@ -158,6 +150,7 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
 
   const validatedFields = SongSchema.safeParse({
     songName: formData.get('songName'),
+    img: formData.get('img'),
     // albumId: formData.get('albumId'),
     artistId: formData.get('artistId'),
     youtubeLink: formData.get('youtubeLink'),
@@ -172,10 +165,11 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
     }
   }
 
-  const { songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink } = validatedFields.data
+  const { songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink, img } = validatedFields.data
 
   const songPostBody = {
     "songName": songName,
+    "img": img,
     "albumId": albumId,
     "artistId": artistId,
     "youtubeLink": youtubeLink,
@@ -207,10 +201,11 @@ export const postCreateSingle = async(prevState: SongFormState, formData: FormDa
 // >>------> UPDATE FNS FOR SONGS/SINGLES <------<<
 export const updateSingle = async(prevState: SongFormState, formData: FormData) => {
 
-  const validatedFields = UpdateSongSchema.safeParse({
-    songId: formData.get('songId'),
+  const validatedFields = SongSchema.safeParse({
+    _id: formData.get('_id'),
     songName: formData.get('songName'),
     // albumId: formData.get('albumId'),
+    img: formData.get('img'),
     artistId: formData.get('artistId'),
     youtubeLink: formData.get('youtubeLink'),
     spotifyLink: formData.get('spotifyLink'),
@@ -224,11 +219,12 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
     }
   }
 
-  const { songId, songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink } = validatedFields.data
+  const { _id, songName, albumId, artistId, youtubeLink, spotifyLink, soundCloudLink, img } = validatedFields.data
 
   type songPostType = {
     songName: string | undefined
     albumId: string | undefined
+    img: string | undefined
     artistId: string | undefined
     youtubeLink: string | undefined
     spotifyLink: string | undefined
@@ -238,6 +234,7 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
   const songPostBody:songPostType = {
     songName: undefined,
     albumId: undefined,
+    img: undefined,
     artistId: undefined,
     youtubeLink: undefined,
     spotifyLink: undefined,
@@ -246,6 +243,7 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
 
   if(songName !== ''){songPostBody.songName = songName}
   if(albumId !== ''){songPostBody.albumId = songName}
+  if(img !== '')(songPostBody.img = img)
   if(artistId !== ''){songPostBody.artistId = artistId}
   if(youtubeLink !== ''){songPostBody.youtubeLink = youtubeLink}
   if(spotifyLink !== ''){songPostBody.spotifyLink = spotifyLink}
@@ -253,7 +251,7 @@ export const updateSingle = async(prevState: SongFormState, formData: FormData) 
 
   console.log('post body: ', songPostBody, console)
 
-  const requestUrl = `${mongo_url}/songs/${songId}`
+  const requestUrl = `${mongo_url}/songs/${_id}`
 
   try {
     const response = await fetch(requestUrl, {

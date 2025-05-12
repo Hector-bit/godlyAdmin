@@ -40,7 +40,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         {/* ARTIST ALBUMS LIST */}
         <div>
           <div className="flex flex-row items-center justify-between mb-4 gap-5">
-            <div>Albums:</div>
+            <div className="font-bold">Albums:</div>
             <LinkBtn 
               href={`/artists/${artistId}/album-manager`}
             >
@@ -50,7 +50,6 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
           <div className="flex flex-col gap-4">
             {/* ALBUMS LIST */}
             {artistData && artistData.albums.map((album) => {
-
               return (
                 <AlbumCard key={album._id} album={album}/>
               )
@@ -62,7 +61,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
         {/* ARTIST SINGLES */}
         <div className="flex flex-col">
           <div className="flex flex-row items-center justify-between mb-4 gap-5">
-            <div>Songs:</div>
+            <div className="font-bold">Singles:</div>
             <LinkBtn 
               href={`/artists/${artistId}/single-manager`}
             >

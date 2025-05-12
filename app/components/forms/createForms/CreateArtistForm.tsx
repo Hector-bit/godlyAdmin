@@ -62,6 +62,33 @@ export default function CreateArtistForm() {
               ))}
           </div>
         </div>
+
+        {/* Artist Image */}
+        <div className="mb-4">
+          <label htmlFor="img" className="mb-2 block text-sm font-medium">
+            Artist Image
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="img"
+                name="img"
+                defaultValue=""
+                placeholder="image link"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
+                aria-describedby='artist-error'
+              />
+            </div>
+          </div>
+          <div id="artist-error" aria-live="polite" aria-atomic="true">
+            {state && state.errors?.img &&
+              state.errors?.img.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         {/* <Link

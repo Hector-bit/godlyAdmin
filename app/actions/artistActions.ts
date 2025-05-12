@@ -19,10 +19,6 @@ const FormSchema = z.object({
     .string()
     .optional()
     .nullable()
-  // status: z.enum(['pending', 'paid'], {
-  //   invalid_type_error: 'Please select an invoice status.',
-  // }),
-  // date: z.string(),
 });
 
 export type ArtistState = {
@@ -67,7 +63,8 @@ export const fetchArtistById = async(artistId: string):Promise<ArtistType | unde
 export const createArtist = async(prevState: ArtistState, formData: FormData) => {
   const validatedFields = FormSchema.safeParse({
     name: formData.get('name'),
-    artistName: formData.get('artistName')
+    artistName: formData.get('artistName'),
+    img: formData.get('img')
   })
 
   if (!validatedFields.success) {
@@ -77,11 +74,12 @@ export const createArtist = async(prevState: ArtistState, formData: FormData) =>
     };
   }
 
-  const { name, artistName } = validatedFields.data
+  const { name, artistName, img } = validatedFields.data
 
   const postBody = {
     'name': name,
-    'artistName': artistName
+    'artistName': artistName,
+    'img': img
   }
 
   try {
@@ -95,12 +93,14 @@ export const createArtist = async(prevState: ArtistState, formData: FormData) =>
 
     const postData = await postResponse.json()
 
-    revalidatePath('/');
     return postData
   } catch(error) {
     console.error('could not post artist: ', error)
     return undefined
   }
+
+  revalidatePath('/');
+  redirect('/')
 }
 
 // >>------> UPDATE FNS FOR ARTISTS <------<<

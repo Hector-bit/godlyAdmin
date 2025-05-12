@@ -22,12 +22,6 @@ const loginList = [
 
 ]
 
-const testUser = {
-  id: "1",
-  username: "rahdeshwithlove",
-  password: "Crabbyapple1"
-}
-
 const loginSchema = z.object({
   username: z.string({ message: "Invalid username" }).trim(),
   password: z.string().min(8, { message: "Password must be at least 8 characters "}).trim()

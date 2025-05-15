@@ -44,7 +44,7 @@ export default async function ArtistPage(props: { params: Promise<{id: string}> 
           </div>
           <div className="flex flex-col gap-4">
             {/* ALBUMS LIST */}
-            {artistData && artistData.albums.map((album) => {
+            {artistData?.albums && artistData.albums.map((album) => {
               return (
                 <AlbumCard key={album._id} album={album}/>
               )

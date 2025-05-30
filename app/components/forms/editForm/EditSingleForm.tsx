@@ -1,13 +1,15 @@
 'use client'
 import { useActionState } from 'react';
-import { postCreateSong, SongFormState } from '@/app/actions/songActions';
+import { updateSingle, SingleFormState } from '@/app/actions/singleActions';
+import { SongType } from '@/app/lib/types/songTypes';
 
-export default function EditSingleForm(props: {artistId: string, albumId: string}) {
-  const initialState: SongFormState = { message: null, errors: {} };
-  const [state, formAction] = useActionState(postCreateSong, initialState);
+export default function EditSingleForm(props: {artistId: string, singleId: string, singleData: SongType}) {
+  const initialState: SingleFormState = { message: null, errors: {} };
+  const [state, formAction] = useActionState(updateSingle, initialState);
 
   const artistId = props.artistId
-  const albumId = props.albumId 
+  const singleId = props.singleId 
+  const singleData = props.singleData
 
   return (
     <form action={formAction}>
@@ -31,10 +33,10 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
         <div className="relative mt-2 rounded-md">
           <div className="relative">
             <input
-              id="albumId"
-              name="albumId"
+              id="singleId"
+              name="singleId"
               type='hidden'
-              defaultValue={albumId}
+              defaultValue={singleId}
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
               aria-describedby='artist-error'
             />
@@ -59,7 +61,7 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
               id="songName"
               name="songName"
               className="peer block w-full cursor-pointer rounded-md py-2 pl-10 border border-gray-200"
-              defaultValue=""
+              defaultValue={singleData.songName}
               placeholder="Song Name"
               aria-describedby='artist-error'>
             </input>
@@ -84,7 +86,7 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
               <input
                 id="youtubeLink"
                 name="youtubeLink"
-                defaultValue={undefined}
+                defaultValue={singleData.youtubeLink}
                 placeholder='youtube link'
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
@@ -112,7 +114,7 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
                 id="spotifyLink"
                 name="spotifyLink"
                 placeholder='spotify link'
-                defaultValue={undefined}
+                defaultValue={singleData.spotifyLink}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
               />
@@ -139,7 +141,7 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
                 id="soundCloudLink"
                 name="soundCloudLink"
                 placeholder='soundcloud link'
-                defaultValue={undefined}
+                defaultValue={singleData.soundCloudLink}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 "
                 aria-describedby='artist-error'
               />
@@ -163,7 +165,7 @@ export default function EditSingleForm(props: {artistId: string, albumId: string
         >
           Cancel
         </Link> */}
-        <button className='border border-2 rounded-md p-4' type="submit">Create Song</button>
+        <button className='border border-2 rounded-md p-4' type="submit">Update Song</button>
       </div>
     </form>
   );

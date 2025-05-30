@@ -3,6 +3,7 @@ import { fetchSongBySongId } from "@/app/actions/songActions";
 import LinkBtn from "@/app/components/buttons/LinkBtn";
 import DeleteSingleBtn from "@/app/components/buttons/DeleteSingleBtn";
 import DeleteModel from "@/app/components/DeleteModel";
+import EditSingleForm from "@/app/components/forms/editForm/EditSingleForm";
 
 export default async function EditSinglePage(props: { params: Promise<{id: string, singleId: string}> }) {
   const params = await props.params;
@@ -41,8 +42,10 @@ export default async function EditSinglePage(props: { params: Promise<{id: strin
           <PencilSquareIcon/>
         </Link> */}
       </div>
-      {/* <CreateSongForm artistId={artistId}/> */}
-      {/* <EditSingleForm artistId={artistId} singleId={singleId}/> */}
+      {/* EDIT SINGLE FORM */}
+      {singleData &&
+        <EditSingleForm artistId={artistId} singleId={singleId} singleData={singleData}/>
+      }
     </div>
   );
 }
